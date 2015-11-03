@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="cudatest" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="axpygpulib">
+         <Option output="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/libaxpygpulib.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 axpygpulib" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="axpygpulib/fast">
+         <Option output="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/libaxpygpulib.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="2" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 axpygpulib/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="cudatest">
+         <Option output="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/cudatest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 cudatest" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="cudatest/fast">
+         <Option output="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/cudatest" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 cudatest/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpycpu.cpp">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/main.cpp">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpycpu.h">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpygpu.cu">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpygpu.h">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

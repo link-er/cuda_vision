@@ -1,0 +1,2 @@
+/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/CMakeFiles/axpygpulib.dir
+/home/stud/adilova/cuda_vision/ass_1_cudatest/build-cudatest-Desktop-Default/CMakeFiles/cudatest.dir

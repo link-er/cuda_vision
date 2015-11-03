@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/cudatest.dir/main.o CMakeFiles/cudatest.dir/axpycpu.o CMakeFiles/cudatest.dir/./cudatest_generated_axpygpu.cu.o  -o cudatest -rdynamic /usr/local/cuda/lib64/libcudart.so -Wl,-rpath,/usr/local/cuda/lib64 

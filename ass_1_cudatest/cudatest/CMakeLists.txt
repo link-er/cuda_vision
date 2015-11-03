@@ -6,13 +6,15 @@ project (cudatest)
 FIND_PACKAGE(CUDA REQUIRED)
 INCLUDE(FindCUDA)
 
-set (SOURCES 
-	main.cpp 
+set (SOURCES
+        main.cpp
         axpygpu.cu
+        axpycpu.cpp
 )
 
-set  (HEADERS 
+set  (HEADERS
         axpygpu.h
+        axpycpu.h
 )
 
 CUDA_ADD_LIBRARY (axpygpulib
