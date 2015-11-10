@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpycpu.h
+/home/stud/adilova/cuda_vision/ass_1_cudatest/matrices/addcpu.h
 
-/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpygpu.h
+/home/stud/adilova/cuda_vision/ass_1_cudatest/matrices/addgpu.h
 cuda.h
 -
 cuda_runtime.h
 -
 
-/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/main.cpp
+/home/stud/adilova/cuda_vision/ass_1_cudatest/matrices/main.cpp
 iostream
 -
 time.h
 -
-axpygpu.h
-/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpygpu.h
-axpycpu.h
-/home/stud/adilova/cuda_vision/ass_1_cudatest/cudatest/axpycpu.h
+addgpu.h
+/home/stud/adilova/cuda_vision/ass_1_cudatest/matrices/addgpu.h
+addcpu.h
+/home/stud/adilova/cuda_vision/ass_1_cudatest/matrices/addcpu.h
 
 /usr/local/cuda/include/builtin_types.h
 device_types.h

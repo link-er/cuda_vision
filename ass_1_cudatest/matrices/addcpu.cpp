@@ -7,7 +7,7 @@ ADDCPU::ADDCPU()
     m = 400;
 }
 
-void ADDCPU::compute(float* a, float* b, float* c, float* e, float* d)
+void ADDCPU::compute(float** a, float** b, float** c, float* e, float* d)
 {
     float temp;
     for(int i=0;i<m;i++){

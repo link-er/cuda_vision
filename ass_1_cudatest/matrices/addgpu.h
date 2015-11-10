@@ -7,17 +7,17 @@
 class ADDGPU
 {
 public:
-    ADDGPU() {}
-    ADDGPU(int n_block_, int n_thread_);
+    ADDGPU();
     ~ADDGPU() {}
 
-    int n_block, n_thread, n, m, k;
-    float *a;
-    float *b;
-    float *c;
+    int n, m, k;
+    float **a;
+    float **b;
+    float **c;
     float *e;
+    float *d;
 
-    void compute(float* a_, float* b_, float* c_, float* e_, float* d_);
+    void compute(float** a_, float** b_, float** c_, float* e_, float* d_);
 };
 
 #endif // ADDGPU_H

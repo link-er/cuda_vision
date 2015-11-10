@@ -7,19 +7,23 @@ using namespace std;
 
 int main (int argc, char** argv)
 {
-    int n_block = 4000;
-    int n_thread = 500;
-    ADDGPU add_gpu(n_block, n_thread);
-    ADDCPU add_cpu();
+    ADDGPU add_gpu;
+    ADDCPU add_cpu;
 
-    int n = 200;
-    int k = 500;
-    int m = 400;
-    float *a, *b, *c, *e, *d_gpu, *d_cpu;
+    const int n = 200;
+    const int k = 500;
+    const int m = 400;
+    float **a, **b, **c, *e, *d_gpu, *d_cpu;
     // create on host variables that will be copied to device later
-    a = new float[n][k];
-    b = new float[k][m];
-    c = new float[n][m];
+    a = new float*[n];
+    for(int i = 0; i < n; ++i)
+        a[i] = new float[k];
+    b = new float*[k];
+    for(int i = 0; i < k; ++i)
+        b[i] = new float[m];
+    c = new float*[n];
+    for(int i = 0; i < n; ++i)
+        c[i] = new float[m];
     e = new float[n];
     d_gpu = new float[m];
     d_cpu = new float[m];
@@ -44,7 +48,6 @@ int main (int argc, char** argv)
     }
 
     clock_t tStart = clock();
-    // z = a*x+y
     add_gpu.compute(a, b, c, e, d_gpu);
     double time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
     cout<<"Time taken with gpu: "<<time_taken<<endl;

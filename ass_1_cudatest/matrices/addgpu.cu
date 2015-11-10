@@ -1,6 +1,6 @@
 #include "addgpu.h"
 
-__global__ void add(float *a, float *b, float *c, float *e, float *d)
+__global__ void add(float **a, float **b, float **c, float *e, float *d, int n, int k)
 {
     // finding index for the element currently calculated
     int i = threadIdx.x;
@@ -9,7 +9,7 @@ __global__ void add(float *a, float *b, float *c, float *e, float *d)
     for(int j=0;j<n;j++){
         temp = 0;
         for(int l=0;l<k;l++){
-            temp += a[j][l]*b[l][i];
+            temp += a[j][l] * b[l][i];
         }
         d[i] += c[j][i] + e[j];
     }
@@ -28,7 +28,7 @@ ADDGPU::ADDGPU()
     cudaMalloc((void **) &d, m*sizeof(float));
 }
 
-void ADDGPU::compute(float* a_, float* b_, float* c_, float* e_, float* d_)
+void ADDGPU::compute(float** a_, float** b_, float** c_, float* e_, float* d_)
 {
     // copy from host to device, to allocated memory
     cudaMemcpy(a, a_, n*k*sizeof(float), cudaMemcpyHostToDevice);
@@ -38,7 +38,7 @@ void ADDGPU::compute(float* a_, float* b_, float* c_, float* e_, float* d_)
     cudaMemcpy(d, d_, m*sizeof(float), cudaMemcpyHostToDevice);
 
     // call with specifing number of blocks and number of threads
-    add<<<1,m>>>(a,b,c,e,d);
+    add<<<1,m>>>(a,b,c,e,d, n, k);
 
     // copy the result back to host
     cudaMemcpy(d_, d, m*sizeof(float), cudaMemcpyDeviceToHost);
