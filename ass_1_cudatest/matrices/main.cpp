@@ -16,6 +16,7 @@ int main (int argc, char** argv)
     int k = 500;
     int m = 400;
     float *a, *b, *c, *e, *d_gpu, *d_cpu;
+    // create on host variables that will be copied to device later
     a = new float[n][k];
     b = new float[k][m];
     c = new float[n][m];
