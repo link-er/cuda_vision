@@ -7,8 +7,8 @@ using namespace std;
 
 int main (int argc, char** argv)
 {
-    int n_block = 4000;
-    int n_thread = 500;
+    int n_block = 10;
+    int n_thread = 200;
     int a = 2.0;
     AXPYGPU axpy_gpu(n_block, n_thread, a);
     AXPYCPU axpy_cpu(n_block, n_thread, a);

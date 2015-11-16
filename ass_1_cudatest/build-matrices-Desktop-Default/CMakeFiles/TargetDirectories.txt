@@ -1,0 +1,2 @@
+/home/stud/adilova/cuda_vision/ass_1_cudatest/build-matrices-Desktop-Default/CMakeFiles/addgpulib.dir
+/home/stud/adilova/cuda_vision/ass_1_cudatest/build-matrices-Desktop-Default/CMakeFiles/matrices.dir
