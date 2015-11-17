@@ -10,3 +10,8 @@ Time taken with gpu: 2e-05
 
 Time taken with cpu: 18.5576
 
+## Assignment2
+
+Contains ipython notebook (old version and new version, old for university PC) that contains several sample data generators.
+
+Cpp project reads matrix from the text file generated in python (with some additions for usability) and multiplies it by 2 in CUDA.
