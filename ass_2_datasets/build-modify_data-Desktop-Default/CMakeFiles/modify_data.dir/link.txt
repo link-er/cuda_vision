@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/modify_data.dir/main.o CMakeFiles/modify_data.dir/./modify_data_generated_multiplier.cu.o  -o modify_data -rdynamic /usr/local/cuda/lib64/libcudart.so -Wl,-rpath,/usr/local/cuda/lib64 

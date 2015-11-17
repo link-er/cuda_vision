@@ -1,0 +1,2 @@
+/home/stud/adilova/cuda_vision/ass_2_datasets/build-modify_data-Desktop-Default/CMakeFiles/modify_data.dir
+/home/stud/adilova/cuda_vision/ass_2_datasets/build-modify_data-Desktop-Default/CMakeFiles/multiplier.dir

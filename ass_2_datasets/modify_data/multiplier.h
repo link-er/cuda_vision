@@ -1,23 +1,20 @@
-#ifndef ADDGPU_H
-#define ADDGPU_H
+#ifndef MULTIPLIER_H
+#define MULTIPLIER_H
 
 #include <cuda.h>
 #include <cuda_runtime.h>
 
-class ADDGPU
+class MULTIPLIER
 {
 public:
-    ADDGPU() {}
-    ADDGPU(int n_block_, int n_thread_);
-    ~ADDGPU() {}
+    MULTIPLIER() {}
+    MULTIPLIER(int rows, int columns);
+    ~MULTIPLIER() {}
 
-    int n_block, n_thread, n, m, k;
+    int m, n;
     float *a;
-    float *b;
-    float *c;
-    float *e;
 
-    void compute(float* a_, float* b_, float* c_, float* e_, float* d_);
+    void compute(float** a_);
 };
 
-#endif // ADDGPU_H
+#endif // MULTIPLIER_H
