@@ -1,10 +1,10 @@
 #include "addcpu.h"
 
-ADDCPU::ADDCPU()
+ADDCPU::ADDCPU(int pass_n, int pass_k, int pass_m)
 {
-    n = 200;
-    k = 500;
-    m = 400;
+    n = pass_n;
+    k = pass_k;
+    m = pass_m;
 }
 
 void ADDCPU::compute(float** a, float** b, float** c, float* e, float* d)

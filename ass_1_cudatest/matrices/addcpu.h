@@ -4,7 +4,7 @@
 class ADDCPU
 {
 public:
-    ADDCPU();
+    ADDCPU(int pass_n, int pass_k, int pass_m);
     ~ADDCPU() {}
 
     int n, m, k;

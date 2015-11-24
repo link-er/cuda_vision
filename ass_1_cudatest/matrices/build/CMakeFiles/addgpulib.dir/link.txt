@@ -1,0 +1,2 @@
+/usr/bin/ar cr libaddgpulib.a  CMakeFiles/addgpulib.dir/./addgpulib_generated_addgpu.cu.o
+/usr/bin/ranlib libaddgpulib.a

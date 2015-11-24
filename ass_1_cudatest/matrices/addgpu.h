@@ -7,13 +7,13 @@
 class ADDGPU
 {
 public:
-    ADDGPU();
+    ADDGPU(int pass_n, int pass_k, int pass_m);
     ~ADDGPU() {}
 
     int n, m, k;
-    float **a;
-    float **b;
-    float **c;
+    float *a;
+    float *b;
+    float *c;
     float *e;
     float *d;
 
