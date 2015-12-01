@@ -1,0 +1,1 @@
+/home/stud/adilova/cuda_vision/ass_3_caffee/build-k_means-Desktop-Default/CMakeFiles/k_means.dir

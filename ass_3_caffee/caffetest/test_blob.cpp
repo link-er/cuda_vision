@@ -25,7 +25,7 @@ clock_t tStart, tEnd;
 #define COMPTIME(X)          \
 cout << "CompTime of "<< (X) <<": " << (double)(tEnd-tStart)/CLOCKS_PER_SEC<<endl;
 
-int main(int argc, char** argv) { 
+int main(int argc, char** argv) {
 
 //// Initialization
     Blob<Dtype>* const blob = new Blob<Dtype>(20, 30, 40, 50);
