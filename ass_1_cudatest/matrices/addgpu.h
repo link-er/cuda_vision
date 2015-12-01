@@ -11,11 +11,11 @@ public:
     ~ADDGPU() {}
 
     int n, m, k;
-    float *a;
-    float *b;
-    float *c;
-    float *e;
-    float *d;
+    float *a1;
+    float *b1;
+    float *c1;
+    float *e1;
+    float *d1;
 
     void compute(float** a_, float** b_, float** c_, float* e_, float* d_);
 };

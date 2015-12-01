@@ -53,15 +53,15 @@ int main (int argc, char** argv)
     double time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
     cout<<"Time taken with gpu: "<<time_taken<<endl;
 
-//    tStart = clock();
-//    add_cpu.compute(a, b, c, e, d_cpu);
-//    time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
-//    cout<<"Time taken with cpu: "<<time_taken<<endl;
+    tStart = clock();
+    add_cpu.compute(a, b, c, e, d_cpu);
+    time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+    cout<<"Time taken with cpu: "<<time_taken<<endl;
 
-//    bool result_validity = true;
-//    for(int i=0;i<m;i++)
-//        result_validity = result_validity && (d_gpu[i] == d_cpu[i]);
-//    cout<<"Result is valid: "<<result_validity<<endl;
+    bool result_validity = true;
+    for(int i=0;i<m;i++)
+        result_validity = result_validity && (d_gpu[i] == d_cpu[i]);
+    cout<<"Result is valid: "<<result_validity<<endl;
 
     delete [] a;
     delete [] b;
