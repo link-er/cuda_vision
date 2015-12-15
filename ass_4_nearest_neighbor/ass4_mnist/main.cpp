@@ -13,7 +13,7 @@ using namespace caffe;
 using namespace std;
 
 int main(int argc, char** argv) {
-    MNIST data("/home/VI/staff/koosy/caffe/caffe-rc2/data/mnist/");
+    MNIST data("/home/stud/adilova/caffe/caffe-rc2/data/mnist/");
 
     int n = 0;
     for(int i=0;i<28;i++){

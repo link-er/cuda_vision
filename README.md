@@ -15,3 +15,9 @@ Time taken with cpu: 18.5576
 Contains ipython notebook (old version and new version, old for university PC) that contains several sample data generators.
 
 Cpp project reads matrix from the text file generated in python (with some additions for usability) and multiplies it by 2 in CUDA.
+
+## Assignment3
+
+Classification with help of caffee blobs of simple multivariant gaussian classes.
+
+Works with 100% correctness.
