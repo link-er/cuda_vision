@@ -1,1 +1,0 @@
-/home/stud/adilova/cuda_vision/ass_4_nearest_neighbor/build-ass4_argmax_test-Desktop-Default/CMakeFiles/argmax_test.dir
