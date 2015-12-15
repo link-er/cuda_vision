@@ -22,6 +22,8 @@ using namespace cv;
 
 typedef double Dtype;
 
+const int CLASSES = 5;
+
 void print_blob(Blob<Dtype>* blob, int rows, int cols) {
     for(int r = 0; r < rows ; r++){
       for(int c = 0; c < cols ; c++){
@@ -33,7 +35,7 @@ void print_blob(Blob<Dtype>* blob, int rows, int cols) {
 
 int main (int argc, char** argv)
 {
-    ifstream trainfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/dataset1.txt");
+    ifstream trainfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/dataset3.txt");
     int n, d;
     float number;
     trainfile >> n >> d;
@@ -55,7 +57,7 @@ int main (int argc, char** argv)
        }
     }
 
-    ifstream classesfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/classes1.txt");
+    ifstream classesfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/classes3.txt");
     int temp, klass;
     classesfile >> n >> temp;
     cout << n << " " << temp << "\n";
@@ -71,7 +73,7 @@ int main (int argc, char** argv)
         classes_data->mutable_cpu_data()[classes_data->offset(0, 0, 0, r)] = classes[r];
      }
 
-    ifstream testfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/test_dataset1.txt");
+    ifstream testfile ("/home/stud/adilova/cuda_vision/ass_3_caffee/test_dataset3.txt");
     int m;
     testfile >> m >> d;
     cout << m << " " << d << "\n";
@@ -143,8 +145,8 @@ int main (int argc, char** argv)
     print_blob(result_blob, n, m);
 
     // find scaled multiplication of X and Z
-    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasNoTrans, n, m, d, 2, train_data->gpu_data(),
-                          test_data->gpu_data(), 0, temp_blob->mutable_gpu_data());
+    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, n, m, d, 2., train_data->gpu_data(),
+                          test_data->gpu_data(), 0., temp_blob->mutable_gpu_data());
     cout << "multiplication of train on test scaled by 2 \n";
     print_blob(temp_blob, n, m);
 
@@ -158,7 +160,8 @@ int main (int argc, char** argv)
     int minimal_index;
     Dtype current_dist;
     ofstream test_classes;
-    test_classes.open("/home/stud/adilova/cuda_vision/ass_3_caffee/test_classes1.txt");
+    test_classes.open("/home/stud/adilova/cuda_vision/ass_3_caffee/result.txt");
+    int current_class, errors = 0;
     for(int c = 0; c < m ; c++){
       cout << "Test vector number " << c << "--------------\n";
       minimal_dist = result_blob->mutable_cpu_data()[result_blob->offset(0, 0, 0, c)];
@@ -172,9 +175,17 @@ int main (int argc, char** argv)
       }
       cout << "minimal distance is " << minimal_dist << " to train vector number " << minimal_index << "\n";
       cout << "class of the vectors is " << classes[minimal_index] << "\n";
+
+      current_class = c / 5;
+      cout << "correct class is " << current_class << "\n";
+      if(current_class != classes[minimal_index])
+          errors++;
+
       test_classes << classes[minimal_index] << "\n";
     }
     test_classes.close();
+
+    cout << "Error rate is " << errors*1.0/m << "\n";
 
     for (int i = 0; i < n; ++i)
         delete [] train[i];

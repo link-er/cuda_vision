@@ -36,7 +36,6 @@ CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cublas_api.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cublas_v2.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda_device_runtime_api.h
-CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda_fp16.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda_runtime.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda_runtime_api.h
 CMakeFiles/k_means.dir/k_means.cpp.o: /usr/local/cuda/include/cuda_surface_types.h
