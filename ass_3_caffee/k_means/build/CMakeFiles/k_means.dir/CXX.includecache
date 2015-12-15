@@ -374,31 +374,35 @@ caffe/neuron_layers.hpp
 caffe/proto/caffe.pb.h
 /home/stud/adilova/caffe/caffe-rc2/include/caffe/caffe/proto/caffe.pb.h
 
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/test_math.cpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/k_means.cpp
+iostream
+-
+fstream
+-
+string
+-
 cstring
 -
 cstdlib
 -
 vector
 -
-string
--
-iostream
--
 stdio.h
+-
+time.h
 -
 opencv2/highgui/highgui.hpp
 -
 caffe/caffe.hpp
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/caffe/caffe.hpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/caffe/caffe.hpp
 caffe/util/io.hpp
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/caffe/util/io.hpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/caffe/util/io.hpp
 caffe/blob.hpp
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/caffe/blob.hpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/caffe/blob.hpp
 caffe/common.hpp
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/caffe/common.hpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/caffe/common.hpp
 caffe/filler.hpp
-/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/caffe/filler.hpp
+/home/stud/adilova/cuda_vision/ass_3_caffee/k_means/caffe/filler.hpp
 
 /usr/include/atlas/cblas.h
 
