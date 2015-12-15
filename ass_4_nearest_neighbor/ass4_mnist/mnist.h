@@ -7,7 +7,7 @@
 
 using namespace std;
 using namespace caffe;
-typedef int Dtype;
+typedef double Dtype;
 
 class MNIST
 {
