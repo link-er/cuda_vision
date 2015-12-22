@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="caffetest" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\caffe\;CMake Files\..\..\..\caffe\caffe-rc2\;CMake Files\..\..\..\caffe\caffe-rc2\build\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\;CMake Files\..\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\..\usr\share\;CMake Files\..\..\..\..\..\..\usr\share\OpenCV\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_blob">
+         <Option output="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/test_blob" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/build/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/src" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/atlas" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/opencv" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 test_blob" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_blob/fast">
+         <Option output="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/test_blob" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/build/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/src" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/atlas" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/opencv" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 test_blob/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_math">
+         <Option output="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/test_math" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/build/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/src" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/atlas" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/opencv" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 test_math" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="test_math/fast">
+         <Option output="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/test_math" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/build/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/include" />
+            <Add directory="/home/stud/adilova/caffe/caffe-rc2/src" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/atlas" />
+            <Add directory="/usr/include/c++/4.8" />
+            <Add directory="/usr/include/c++/4.8/backward" />
+            <Add directory="/usr/include/opencv" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/4.8" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+            <Add directory="/usr/local/cuda/include" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 test_math/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/test_blob.cpp">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/test_math.cpp">
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/../../../caffe/caffe-rc2/build/CaffeConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\caffe\caffe-rc2\build\" />
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/../../../caffe/caffe-rc2/build/CaffeTargets.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\caffe\caffe-rc2\build\" />
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/../../../../../../usr/share/OpenCV/OpenCVModules.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\OpenCV\" />
+      </Unit>
+      <Unit filename="/home/stud/adilova/cuda_vision/ass_3_caffee/caffetest/../../../../../../usr/share/OpenCV/OpenCVModules-release.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\..\usr\share\OpenCV\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
