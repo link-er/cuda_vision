@@ -68,6 +68,8 @@ int main(int argc, char** argv) {
     caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, n, m, d, -2., data.blob_train_images->gpu_data(),
                           data.blob_test_images->gpu_data(), 1., result_blob->mutable_gpu_data());
     cout << "Got final distances\n";
+    delete data.blob_train_images;
+    delete data.blob_test_images;
 
     Dtype minimal_dist, current_dist;
     int minimal_index, errors = 0;
@@ -84,7 +86,8 @@ int main(int argc, char** argv) {
         }
       }
       int label = data.blob_train_labels->cpu_data()[data.blob_train_labels->offset(minimal_index,0,0,0)];
-      cout << ".";
+      if(c%100 == 0)
+        cout << ".";
 
       if(label != data.blob_test_labels->cpu_data()[data.blob_test_labels->offset(c,0,0,0)])
           errors++;
@@ -92,8 +95,6 @@ int main(int argc, char** argv) {
     cout << "\nError rate is " << errors*1.0/m << "\n";
 
     delete result_blob;
-    delete data.blob_train_images;
-    delete data.blob_test_images;
     delete data.blob_train_labels;
     delete data.blob_test_labels;
 

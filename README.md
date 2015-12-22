@@ -21,3 +21,9 @@ Cpp project reads matrix from the text file generated in python (with some addit
 Classification with help of caffee blobs of simple multivariant gaussian classes.
 
 Works with 100% correctness.
+
+## Assignment4
+
+For using previous implementation of K-means with MNIST data it is needed to reshape input matrices of 28x28 to vectors (blob->Reshape command). The result was 0.0309 error rate.
+
+
