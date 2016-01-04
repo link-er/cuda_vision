@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
     delete data.blob_train_images;
     delete data.blob_test_images;
 
-    // working with argmax layer
+    // ============= ARGMAX LAYER ================
     cout << "Preparing layer\n";
     Blob<Dtype>* blob_top = new Blob<Dtype>();
     vector<Blob<Dtype>*> blob_bottom_vec;
@@ -99,8 +99,10 @@ int main(int argc, char** argv) {
       if(label != data.blob_test_labels->cpu_data()[data.blob_test_labels->offset(c,0,0,0)])
         errors++;
     }
-    cout << "\nError rate is " << errors*1.0/m << "\n";
+    cout << "Error rate is " << errors*1.0/m << "\n";
+    // ============= ARGMAX LAYER ================
 
+    // ============= MANUAL RESULTS COUNTiNG ==============
     // Dtype minimal_dist, current_dist;
     // int minimal_index, label, errors = 0;
 
@@ -123,6 +125,7 @@ int main(int argc, char** argv) {
     //       errors++;
     // }
     // cout << "\nError rate is " << errors*1.0/m << "\n";
+    // ============= MANUAL RESULTS COUNTiNG ==============
 
     delete result_blob;
     delete data.blob_train_labels;

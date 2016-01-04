@@ -26,4 +26,8 @@ Works with 100% correctness.
 
 For using previous implementation of K-means with MNIST data it is needed to reshape input matrices of 28x28 to vectors (blob->Reshape command). The result was 0.0309 error rate.
 
+With argmax layer program works definitely faster with the same results of error.
+
+
+
 
