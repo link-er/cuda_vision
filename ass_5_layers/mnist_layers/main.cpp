@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
 
     clock_t tStart = clock();
     ofstream learning_curve;
-    learning_curve.open("/home/stud/adilova/cuda_vision/ass_5_layers/errors.txt");
+    learning_curve.open("/home/stud/adilova/cuda_vision/ass_5_layers/mnist_layers/errors.txt");
     // forward and backward iteration
     for(int n=0; n<nIter; n++){
         // forward

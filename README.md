@@ -28,6 +28,8 @@ For using previous implementation of K-means with MNIST data it is needed to res
 
 With argmax layer program works definitely faster with the same results of error.
 
+## Assignment5
 
+Using softmax technique for classifying MNIST dataset with 10 classes for classification. When learning on GPU time is (for 100 iterations and learning rate 0.1) 51.3484s. When learning on CPU (same parameters) - 748.319s. Error development is displayed with help of python.
 
 
