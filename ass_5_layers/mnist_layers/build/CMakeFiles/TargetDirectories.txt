@@ -1,0 +1,1 @@
+/home/stud/adilova/cuda_vision/ass_5_layers/mnist_layers/build/CMakeFiles/mnist_layers.dir

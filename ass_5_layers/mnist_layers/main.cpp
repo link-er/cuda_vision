@@ -6,6 +6,8 @@
 #include <iostream>
 #include <stdio.h>
 
+#include <time.h>
+
 #include "caffe/caffe.hpp"
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
@@ -24,7 +26,7 @@ int clas = 10;
 int nIter = 1000;
 
 int main(int argc, char** argv) {
-    Caffe::set_mode(Caffe::CPU);
+    Caffe::set_mode(Caffe::GPU);
 
     MNIST data("/home/stud/adilova/caffe/caffe-rc2/data/mnist/");
 
@@ -61,12 +63,16 @@ int main(int argc, char** argv) {
     SoftmaxWithLossLayer<Dtype> layer_loss(layer_loss_param);
     layer_loss.SetUp(blob_bottom_loss_vec_, blob_top_loss_vec_);
 
+    clock_t tStart = clock();
+    ofstream learning_curve;
+    learning_curve.open("/home/stud/adilova/cuda_vision/ass_5_layers/errors.txt");
     // forward and backward iteration
     for(int n=0; n<nIter; n++){
         // forward
         layer_ip.Forward(blob_bottom_ip_vec_, blob_top_ip_vec_);
         Dtype loss = layer_loss.Forward(blob_bottom_loss_vec_, blob_top_loss_vec_);
         cout<<"Iter "<<n<<" loss "<<loss<<endl;
+        learning_curve << n << " " << loss << endl;
 
         // backward
         vector<bool> backpro_vec;
@@ -81,6 +87,9 @@ int main(int argc, char** argv) {
         caffe_scal(param[0]->count(), rate, param[0]->mutable_cpu_diff());
         param[0]->Update();
     }
+    learning_curve.close();
+    double time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+    cout<<"Learning time: "<<time_taken<<endl;
 
     // prediction
     vector<Blob<Dtype>*> blob_bottom_ip_test_vec_;
@@ -96,7 +105,7 @@ int main(int argc, char** argv) {
     // evaluation
     int score = 0, label, max_label;
     Dtype max_score;
-    Dtype scores = new Dtype[10];
+    Dtype* scores = new Dtype[10];
     for (int n=0; n<nTestData; n++){
         label = data.blob_test_labels->mutable_cpu_data()[data.blob_test_labels->offset(n,0,0,0)];
         // argmax evaluate

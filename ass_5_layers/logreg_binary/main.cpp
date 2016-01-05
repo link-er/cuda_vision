@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
 
     LayerParameter layer_loss_param;
     SoftmaxWithLossLayer<Dtype> layer_loss(layer_loss_param);
-    layer_loss.SetUp(blob_bottom_loss_vec_, blob_top_loss_vec_);\
+    layer_loss.SetUp(blob_bottom_loss_vec_, blob_top_loss_vec_);
 
     // forward and backward iteration
     for(int n=0;n<nIter;n++){
@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
     // evaluation
     int score = 0;
     for (int n=0;n<nTestData;n++){
-        int label = blob_test_label_->mutable_cpu_data()[blob_train_label_->offset(n,0,0.0)];
+        int label = blob_test_label_->mutable_cpu_data()[blob_test_label_->offset(n,0,0,0)];
         // argmax evaluate
         Dtype score_0 = blob_top_ip_test_->mutable_cpu_data()[blob_top_ip_test_->offset(n,0,0,0)];
         Dtype score_1 = blob_top_ip_test_->mutable_cpu_data()[blob_top_ip_test_->offset(n,1,0,0)];

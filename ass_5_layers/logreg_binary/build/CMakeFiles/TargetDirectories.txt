@@ -1,0 +1,1 @@
+/home/stud/adilova/cuda_vision/ass_5_layers/logreg_binary/build/CMakeFiles/logreg_binary.dir
