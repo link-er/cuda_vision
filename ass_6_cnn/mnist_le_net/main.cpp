@@ -15,6 +15,8 @@ using namespace caffe;
 using namespace std;
 typedef double Dtype;
 
+int nIter = 1000;
+
 int main(int argc, char** argv) {
   Caffe::set_mode(Caffe::GPU);
 
@@ -175,6 +177,50 @@ int main(int argc, char** argv) {
   SoftmaxWithLossLayer<Dtype> layer_loss(layer_loss_param);
   layer_loss.SetUp(blob_bottom_loss_vec_, blob_top_loss_vec_);
   // ==== 9 LAYER ====
+
+  // ==== TRAINING ====
+  ofstream learning_curve;
+  learning_curve.open("/home/stud/adilova/cuda_vision/ass_6_cnn/mnist_le_net/errors.txt");
+  // forward and backward iteration
+  for(int n=0; n<nIter; n++){
+    // forward
+    layer_data.Forward(blob_bottom_data_vec_, blob_top_data_vec_);
+    conv1_layer.Forward(blob_bottom_conv1_vec_, blob_top_conv1_vec_);
+    pool1_layer.Forward(blob_bottom_pool1_vec_, blob_top_pool1_vec_);
+    conv2_layer.Forward(blob_bottom_conv2_vec_, blob_top_conv2_vec_);
+    pool2_layer.Forward(blob_bottom_pool2_vec_, blob_top_pool2_vec_);
+    ip1_layer.Forward(blob_bottom_ip1_vec_, blob_top_ip1_vec_);
+    relu_layer.Forward(blob_bottom_relu_vec_, blob_top_relu_vec_);
+    // ip2_layer.Forward(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
+    Dtype loss = layer_loss.Forward(blob_bottom_loss_vec_, blob_top_loss_vec_);
+
+    cout<<"Iter "<<n<<" loss "<<loss<<endl;
+    learning_curve << n << " " << loss << endl;
+
+    // backward
+    vector<bool> backpro_vec;
+    backpro_vec.push_back(1);
+    backpro_vec.push_back(0);
+    layer_loss.Backward(blob_top_loss_vec_, backpro_vec, blob_bottom_loss_vec_);
+    // ip2_layer.Backward(blob_top_ip2_vec_, backpro_vec, blob_bottom_ip2_vec_);
+    relu_layer.Backward(blob_top_relu_vec_, backpro_vec, blob_bottom_relu_vec_);
+    ip1_layer.Backward(blob_top_ip1_vec_, backpro_vec, blob_bottom_ip1_vec_);
+    pool2_layer.Backward(blob_top_pool2_vec_, backpro_vec, blob_bottom_pool2_vec_);
+    conv2_layer.Backward(blob_top_conv2_vec_, backpro_vec, blob_bottom_conv2_vec_);
+    pool1_layer.Backward(blob_top_pool1_vec_, backpro_vec, blob_bottom_pool1_vec_);
+    conv1_layer.Backward(blob_top_conv1_vec_, backpro_vec, blob_bottom_conv1_vec_);
+    layer_data.Backward(blob_top_data_vec_, backpro_vec, blob_bottom_data_vec_);
+
+    // update weights of layer_ip
+    Dtype rate = 0.1;
+    // vector<shared_ptr<Blob<Dtype> > > param2 = ip2_layer.blobs();
+    vector<shared_ptr<Blob<Dtype> > > param1 = ip1_layer.blobs();
+    // caffe_scal(param2[0]->count(), rate, param2[0]->mutable_cpu_diff());
+    // param2[0]->Update();
+    caffe_scal(param1[0]->count(), rate, param1[0]->mutable_cpu_diff());
+    param1[0]->Update();
+  }
+  // ==== TRAINING ====
 
 
   return 0;
