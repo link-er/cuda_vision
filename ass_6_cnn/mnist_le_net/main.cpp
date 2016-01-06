@@ -16,6 +16,7 @@ using namespace std;
 typedef double Dtype;
 
 int nIter = 1000;
+int nTest = 10000;
 
 int main(int argc, char** argv) {
   Caffe::set_mode(Caffe::GPU);
@@ -182,7 +183,9 @@ int main(int argc, char** argv) {
   ofstream learning_curve;
   learning_curve.open("/home/stud/adilova/cuda_vision/ass_6_cnn/mnist_le_net/errors.txt");
   // forward and backward iteration
-  for(int n=0; n<nIter; n++){
+  int n = 0;
+  Dtype loss = 1000;
+  while(n < nIter && loss > 0.1){
     // forward
     layer_data.Forward(blob_bottom_data_vec_, blob_top_data_vec_);
     conv1_layer.Forward(blob_bottom_conv1_vec_, blob_top_conv1_vec_);
@@ -192,7 +195,7 @@ int main(int argc, char** argv) {
     ip1_layer.Forward(blob_bottom_ip1_vec_, blob_top_ip1_vec_);
     relu_layer.Forward(blob_bottom_relu_vec_, blob_top_relu_vec_);
     // ip2_layer.Forward(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
-    Dtype loss = layer_loss.Forward(blob_bottom_loss_vec_, blob_top_loss_vec_);
+    loss = layer_loss.Forward(blob_bottom_loss_vec_, blob_top_loss_vec_);
 
     cout<<"Iter "<<n<<" loss "<<loss<<endl;
     learning_curve << n << " " << loss << endl;
@@ -219,9 +222,142 @@ int main(int argc, char** argv) {
     // param2[0]->Update();
     caffe_scal(param1[0]->count(), rate, param1[0]->mutable_cpu_diff());
     param1[0]->Update();
+
+    n++;
   }
   // ==== TRAINING ====
 
+  // ==== PREDICTING ====
+  vector<Blob<Dtype>*> blob_bottom_test_data_vec_;
+  vector<Blob<Dtype>*> blob_top_test_data_vec_;
+
+  Blob<Dtype>* const blob_test_data = new Blob<Dtype>();
+  Blob<Dtype>* const blob_test_label = new Blob<Dtype>();
+
+  blob_top_test_data_vec_.push_back(blob_test_data);
+  blob_top_test_data_vec_.push_back(blob_test_label);
+
+  LayerParameter layer_test_data_param;
+  DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
+  data_param->set_batch_size(nTest);
+  data_param->set_source("/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb");
+  data_param->set_backend(caffe::DataParameter_DB_LMDB);
+  // transforming input data - normilizing it from 0~255 to 0~1
+  TransformationParameter* transform_test_param = layer_test_data_param.mutable_transform_param();
+  transform_test_param->set_scale(1./255.);
+  DataLayer<Dtype> layer_test_data(layer_test_data_param);
+  layer_test_data.SetUp(blob_bottom_test_data_vec_, blob_top_test_data_vec_);
+
+  // conv1
+  vector<Blob<Dtype>*> blob_bottom_conv1_test_vec_;
+  vector<Blob<Dtype>*> blob_top_conv1_test_vec_;
+  Blob<Dtype>* const blob_top_conv1_test_ = new Blob<Dtype>();
+
+  blob_bottom_conv1_test_vec_.push_back(blob_test_data);
+  blob_top_conv1_vec_.push_back(blob_top_conv1_test_);
+
+  conv1_layer.Reshape(blob_bottom_conv1_test_vec_, blob_top_conv1_test_vec_);
+
+  // pool1
+  vector<Blob<Dtype>*> blob_bottom_pool1_test_vec_;
+  vector<Blob<Dtype>*> blob_top_pool1_test_vec_;
+  Blob<Dtype>* const blob_top_pool1_test_ = new Blob<Dtype>();
+
+  blob_bottom_pool1_test_vec_.push_back(blob_top_conv1_test_);
+  blob_top_pool1_test_vec_.push_back(blob_top_pool1_test_);
+  pool1_layer.Reshape(blob_bottom_pool1_test_vec_, blob_top_pool1_test_vec_);
+
+  // conv2
+  vector<Blob<Dtype>*> blob_bottom_conv2_test_vec_;
+  vector<Blob<Dtype>*> blob_top_conv2_test_vec_;
+  Blob<Dtype>* const blob_top_conv2_test_ = new Blob<Dtype>();
+
+  blob_bottom_conv2_test_vec_.push_back(blob_top_pool1_test_);
+  blob_top_conv2_test_vec_.push_back(blob_top_conv2_test_);
+  conv2_layer.Reshape(blob_bottom_conv2_test_vec_, blob_top_conv2_test_vec_);
+
+  // pool2
+  vector<Blob<Dtype>*> blob_bottom_pool2_test_vec_;
+  vector<Blob<Dtype>*> blob_top_pool2_test_vec_;
+  Blob<Dtype>* const blob_top_pool2_test_ = new Blob<Dtype>();
+
+  blob_bottom_pool2_test_vec_.push_back(blob_top_conv2_test_);
+  blob_top_pool2_test_vec_.push_back(blob_top_pool2_test_);
+  pool2_layer.Reshape(blob_bottom_pool2_test_vec_, blob_top_pool2_test_vec_);
+
+  // ip1
+  vector<Blob<Dtype>*> blob_bottom_ip1_test_vec_;
+  vector<Blob<Dtype>*> blob_top_ip1_test_vec_;
+  Blob<Dtype>* const blob_top_ip1_test_ = new Blob<Dtype>();
+
+  blob_bottom_ip1_test_vec_.push_back(blob_top_pool2_test_);
+  blob_top_ip1_test_vec_.push_back(blob_top_ip1_test_);
+  ip1_layer.Reshape(blob_bottom_ip1_test_vec_, blob_top_ip1_test_vec_);
+
+  // relu
+  vector<Blob<Dtype>*> blob_bottom_relu_test_vec_;
+  vector<Blob<Dtype>*> blob_top_relu_test_vec_;
+
+  blob_bottom_relu_test_vec_.push_back(blob_top_ip1_test_);
+  blob_top_relu_test_vec_.push_back(blob_top_ip1_test_);
+  relu_layer.Reshape(blob_bottom_relu_test_vec_, blob_top_relu_test_vec_);
+
+  // ip2
+  /*vector<Blob<Dtype>*> blob_bottom_ip2_test_vec_;
+  vector<Blob<Dtype>*> blob_top_ip2_test_vec_;
+  Blob<Dtype>* const blob_top_ip2_test_ = new Blob<Dtype>();
+
+  blob_bottom_ip2_test_vec_.push_back(blob_top_ip1_test_);
+  blob_top_ip2_test_vec_.push_back(blob_top_ip2_test_);
+  ip2_layer.Reshape(blob_bottom_ip2_test_vec_, blob_top_ip2_test_vec_);
+  */
+
+  // loss
+  vector<Blob<Dtype>*> blob_bottom_loss_test_vec_;
+  vector<Blob<Dtype>*> blob_top_loss_test_vec_;
+  Blob<Dtype>* const blob_top_loss_test_ = new Blob<Dtype>();
+
+  blob_bottom_loss_test_vec_.push_back(blob_top_ip1_test_);
+  blob_top_loss_test_vec_.push_back(blob_top_loss_test_);
+  layer_loss.Reshape(blob_bottom_loss_test_vec_, blob_top_loss_test_vec_);
+
+  // argmax
+  vector<Blob<Dtype>*> blob_bottom_argmax_vec_;
+  vector<Blob<Dtype>*> blob_top_argmax_vec_;
+
+  Blob<Dtype>* blob_top_argmax_ = new Blob<Dtype>();
+
+  blob_bottom_argmax_vec_.push_back(blob_top_loss_test_);
+  blob_top_argmax_vec_.push_back(blob_top_argmax_);
+
+  LayerParameter layer_argmax_param;
+  ArgMaxParameter* argmax_param = layer_argmax_param.mutable_argmax_param();
+  argmax_param->set_out_max_val(false);
+  ArgMaxLayer<Dtype> argmax_layer(layer_argmax_param);
+  argmax_layer.SetUp(blob_bottom_argmax_vec_, blob_top_argmax_vec_);
+
+  // predict
+  layer_data.Forward(blob_bottom_test_data_vec_, blob_top_test_data_vec_);
+  conv1_layer.Forward(blob_bottom_conv1_test_vec_, blob_top_conv1_test_vec_);
+  pool1_layer.Forward(blob_bottom_pool1_test_vec_, blob_top_pool1_test_vec_);
+  conv2_layer.Forward(blob_bottom_conv2_test_vec_, blob_top_conv2_test_vec_);
+  pool2_layer.Forward(blob_bottom_pool2_test_vec_, blob_top_pool2_test_vec_);
+  ip1_layer.Forward(blob_bottom_ip1_test_vec_, blob_top_ip1_test_vec_);
+  relu_layer.Forward(blob_bottom_relu_test_vec_, blob_top_relu_test_vec_);
+  // ip2_layer.Forward(blob_bottom_ip2_test_vec_, blob_top_ip2_test_vec_);
+  layer_loss.Forward(blob_bottom_loss_test_vec_, blob_top_loss_test_vec_);
+  argmax_layer.Forward(blob_bottom_argmax_vec_, blob_top_argmax_vec_);
+
+  int label, max_index, score = 0;
+  const Dtype* predictions = blob_top_argmax_->cpu_data();
+  for(int c = 0; c < nTest ; c++){
+    max_index = predictions[blob_top_argmax_->offset(c,0,0,0)];
+    // label = data.blob_train_labels->cpu_data()[data.blob_train_labels->offset(max_index,0,0,0)];
+    // if(label == data.blob_test_labels->cpu_data()[data.blob_test_labels->offset(c,0,0,0)])
+    //   score++;
+  }
+  cout<<"Test score: "<<score<<" out of "<<nTest<<endl;
+  // ==== PREDICTING ====
 
   return 0;
 }
