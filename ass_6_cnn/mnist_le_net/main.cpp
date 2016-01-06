@@ -10,7 +10,6 @@
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
-#include "mnist.h"
 
 using namespace caffe;
 using namespace std;
@@ -55,10 +54,10 @@ int main(int argc, char** argv) {
   LayerParameter layer_conv1_param;
   ConvolutionParameter* conv1_param = layer_conv1_param.mutable_convolution_param();
   conv1_param->set_num_output(20);
-  conv1_param->add_kernel_size(5);
+  conv1_param->set_kernel_size(5);
   conv1_param->mutable_weight_filler()->set_type("xavier");
   ConvolutionLayer<Dtype> conv1_layer(layer_conv1_param);
-  conv1_layer.SetUp(blob_bottom_conv1_vec_, blob_top_conv1_vec_)
+  conv1_layer.SetUp(blob_bottom_conv1_vec_, blob_top_conv1_vec_);
 
   vector<Blob<Dtype>*> blob_top_pool1_vec_;
   vector<Blob<Dtype>*> blob_bottom_pool1_vec_;
@@ -74,7 +73,7 @@ int main(int argc, char** argv) {
   pool1_param->set_kernel_size(2);
   pool1_param->set_stride(2);
   PoolingLayer<Dtype> pool1_layer(layer_pool1_param);
-  pool1_layer.SetUp(blob_bottom_pool1_vec_, blob_top_pool1_vec_)
+  pool1_layer.SetUp(blob_bottom_pool1_vec_, blob_top_pool1_vec_);
   // ==== 2-3 LAYER ====
 
   // ==== 4-5 LAYER ====
@@ -90,10 +89,10 @@ int main(int argc, char** argv) {
   LayerParameter layer_conv2_param;
   ConvolutionParameter* conv2_param = layer_conv2_param.mutable_convolution_param();
   conv2_param->set_num_output(50);
-  conv2_param->add_kernel_size(5);
+  conv2_param->set_kernel_size(5);
   conv2_param->mutable_weight_filler()->set_type("xavier");
   ConvolutionLayer<Dtype> conv2_layer(layer_conv2_param);
-  conv2_layer.SetUp(blob_bottom_conv2_vec_, blob_top_conv2_vec_)
+  conv2_layer.SetUp(blob_bottom_conv2_vec_, blob_top_conv2_vec_);
 
   vector<Blob<Dtype>*> blob_top_pool2_vec_;
   vector<Blob<Dtype>*> blob_bottom_pool2_vec_;
@@ -109,7 +108,7 @@ int main(int argc, char** argv) {
   pool2_param->set_kernel_size(2);
   pool2_param->set_stride(2);
   PoolingLayer<Dtype> pool2_layer(layer_pool2_param);
-  pool2_layer.SetUp(blob_bottom_pool2_vec_, blob_top_pool2_vec_)
+  pool2_layer.SetUp(blob_bottom_pool2_vec_, blob_top_pool2_vec_);
   // ==== 4-5 LAYER ====
 
   // ==== 6 LAYER ====
@@ -138,7 +137,8 @@ int main(int argc, char** argv) {
   blob_bottom_relu_vec_.push_back(blob_top_ip1_);
   blob_top_relu_vec_.push_back(blob_top_ip1_);
 
-  ReLULayer<Dtype> relu_layer();
+  LayerParameter layer_relu_param;
+  ReLULayer<Dtype> relu_layer(layer_relu_param);
   relu_layer.SetUp(blob_bottom_relu_vec_, blob_top_relu_vec_);
   // ==== 7 LAYER ====
 
