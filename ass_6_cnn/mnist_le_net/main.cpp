@@ -144,12 +144,12 @@ int main(int argc, char** argv) {
 
   // ==== 8 LAYER ====
   // second inner product layer
-  vector<Blob<Dtype>*> blob_top_ip2_vec_;
+  /*vector<Blob<Dtype>*> blob_top_ip2_vec_;
   vector<Blob<Dtype>*> blob_bottom_ip2_vec_;
 
   Blob<Dtype>* const blob_top_ip2_ = new Blob<Dtype>();
 
-  blob_bottom_ip1_vec_.push_back(blob_top_ip1_);
+  blob_bottom_ip2_vec_.push_back(blob_top_ip1_);
   blob_top_ip2_vec_.push_back(blob_top_ip2_);
 
   LayerParameter layer_ip2_param;
@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
   ip1_param->mutable_weight_filler()->set_type("xavier");
   InnerProductLayer<Dtype> ip2_layer(layer_ip2_param);
   ip2_layer.SetUp(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
-  // ==== 8 LAYER ====
+  */// ==== 8 LAYER ====
 
   // ==== 9 LAYER ====
   // softmax loss layer
@@ -167,7 +167,7 @@ int main(int argc, char** argv) {
 
   Blob<Dtype>* const blob_top_loss_ = new Blob<Dtype>();
 
-  blob_bottom_loss_vec_.push_back(blob_top_ip2_);
+  blob_bottom_loss_vec_.push_back(blob_top_ip1_);
   blob_bottom_loss_vec_.push_back(blob_label);
   blob_top_loss_vec_.push_back(blob_top_loss_);
 
