@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
 
   // ==== 8 LAYER ====
   // second inner product layer
-  /*vector<Blob<Dtype>*> blob_top_ip2_vec_;
+  vector<Blob<Dtype>*> blob_top_ip2_vec_;
   vector<Blob<Dtype>*> blob_bottom_ip2_vec_;
 
   Blob<Dtype>* const blob_top_ip2_ = new Blob<Dtype>();
@@ -157,11 +157,11 @@ int main(int argc, char** argv) {
 
   LayerParameter layer_ip2_param;
   InnerProductParameter* ip2_param = layer_ip2_param.mutable_inner_product_param();
-  ip1_param->set_num_output(10);
-  ip1_param->mutable_weight_filler()->set_type("xavier");
+  ip2_param->set_num_output(10);
+  ip2_param->mutable_weight_filler()->set_type("xavier");
   InnerProductLayer<Dtype> ip2_layer(layer_ip2_param);
   ip2_layer.SetUp(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
-  */// ==== 8 LAYER ====
+  // ==== 8 LAYER ====
 
   // ==== 9 LAYER ====
   // softmax loss layer
@@ -170,7 +170,7 @@ int main(int argc, char** argv) {
 
   Blob<Dtype>* const blob_top_loss_ = new Blob<Dtype>();
 
-  blob_bottom_loss_vec_.push_back(blob_top_ip1_);
+  blob_bottom_loss_vec_.push_back(blob_top_ip2_);
   blob_bottom_loss_vec_.push_back(blob_label);
   blob_top_loss_vec_.push_back(blob_top_loss_);
 
@@ -185,7 +185,7 @@ int main(int argc, char** argv) {
   // forward and backward iteration
   int n = 0;
   Dtype loss = 1000;
-  while(n < nIter && loss > 0.1){
+  while(n < nIter && loss > 0.001){
     // forward
     layer_data.Forward(blob_bottom_data_vec_, blob_top_data_vec_);
     conv1_layer.Forward(blob_bottom_conv1_vec_, blob_top_conv1_vec_);
@@ -194,7 +194,7 @@ int main(int argc, char** argv) {
     pool2_layer.Forward(blob_bottom_pool2_vec_, blob_top_pool2_vec_);
     ip1_layer.Forward(blob_bottom_ip1_vec_, blob_top_ip1_vec_);
     relu_layer.Forward(blob_bottom_relu_vec_, blob_top_relu_vec_);
-    // ip2_layer.Forward(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
+    ip2_layer.Forward(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
     loss = layer_loss.Forward(blob_bottom_loss_vec_, blob_top_loss_vec_);
 
     cout<<"Iter "<<n<<" loss "<<loss<<endl;
@@ -205,7 +205,7 @@ int main(int argc, char** argv) {
     backpro_vec.push_back(1);
     backpro_vec.push_back(0);
     layer_loss.Backward(blob_top_loss_vec_, backpro_vec, blob_bottom_loss_vec_);
-    // ip2_layer.Backward(blob_top_ip2_vec_, backpro_vec, blob_bottom_ip2_vec_);
+    ip2_layer.Backward(blob_top_ip2_vec_, backpro_vec, blob_bottom_ip2_vec_);
     relu_layer.Backward(blob_top_relu_vec_, backpro_vec, blob_bottom_relu_vec_);
     ip1_layer.Backward(blob_top_ip1_vec_, backpro_vec, blob_bottom_ip1_vec_);
     pool2_layer.Backward(blob_top_pool2_vec_, backpro_vec, blob_bottom_pool2_vec_);
@@ -216,12 +216,22 @@ int main(int argc, char** argv) {
 
     // update weights of layer_ip
     Dtype rate = 0.1;
-    // vector<shared_ptr<Blob<Dtype> > > param2 = ip2_layer.blobs();
+
+    vector<shared_ptr<Blob<Dtype> > > param2 = ip2_layer.blobs();
+    caffe_scal(param2[0]->count(), rate, param2[0]->mutable_cpu_diff());
+    param2[0]->Update();
+
     vector<shared_ptr<Blob<Dtype> > > param1 = ip1_layer.blobs();
-    // caffe_scal(param2[0]->count(), rate, param2[0]->mutable_cpu_diff());
-    // param2[0]->Update();
     caffe_scal(param1[0]->count(), rate, param1[0]->mutable_cpu_diff());
     param1[0]->Update();
+
+    vector<shared_ptr<Blob<Dtype> > > param3 = conv2_layer.blobs();
+    caffe_scal(param3[0]->count(), rate, param3[0]->mutable_cpu_diff());
+    param3[0]->Update();
+
+    vector<shared_ptr<Blob<Dtype> > > param4 = conv1_layer.blobs();
+    caffe_scal(param4[0]->count(), rate, param4[0]->mutable_cpu_diff());
+    param4[0]->Update();
 
     n++;
   }
@@ -239,9 +249,9 @@ int main(int argc, char** argv) {
 
   LayerParameter layer_test_data_param;
   DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
-  data_param->set_batch_size(nTest);
-  data_param->set_source("/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb");
-  data_param->set_backend(caffe::DataParameter_DB_LMDB);
+  test_data_param->set_batch_size(nTest);
+  test_data_param->set_source("/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb");
+  test_data_param->set_backend(caffe::DataParameter_DB_LMDB);
   // transforming input data - normilizing it from 0~255 to 0~1
   TransformationParameter* transform_test_param = layer_test_data_param.mutable_transform_param();
   transform_test_param->set_scale(1./255.);
@@ -249,85 +259,31 @@ int main(int argc, char** argv) {
   layer_test_data.SetUp(blob_bottom_test_data_vec_, blob_top_test_data_vec_);
 
   // conv1
+  // we need to reshape only data input and all others will be reshaped like this - no new blobs needed
   vector<Blob<Dtype>*> blob_bottom_conv1_test_vec_;
-  vector<Blob<Dtype>*> blob_top_conv1_test_vec_;
-  Blob<Dtype>* const blob_top_conv1_test_ = new Blob<Dtype>();
 
   blob_bottom_conv1_test_vec_.push_back(blob_test_data);
-  blob_top_conv1_vec_.push_back(blob_top_conv1_test_);
 
-  conv1_layer.Reshape(blob_bottom_conv1_test_vec_, blob_top_conv1_test_vec_);
-
+  conv1_layer.Reshape(blob_bottom_conv1_test_vec_, blob_top_conv1_vec_);
   // pool1
-  vector<Blob<Dtype>*> blob_bottom_pool1_test_vec_;
-  vector<Blob<Dtype>*> blob_top_pool1_test_vec_;
-  Blob<Dtype>* const blob_top_pool1_test_ = new Blob<Dtype>();
-
-  blob_bottom_pool1_test_vec_.push_back(blob_top_conv1_test_);
-  blob_top_pool1_test_vec_.push_back(blob_top_pool1_test_);
-  pool1_layer.Reshape(blob_bottom_pool1_test_vec_, blob_top_pool1_test_vec_);
-
+  pool1_layer.Reshape(blob_bottom_pool1_vec_, blob_top_pool1_vec_);
   // conv2
-  vector<Blob<Dtype>*> blob_bottom_conv2_test_vec_;
-  vector<Blob<Dtype>*> blob_top_conv2_test_vec_;
-  Blob<Dtype>* const blob_top_conv2_test_ = new Blob<Dtype>();
-
-  blob_bottom_conv2_test_vec_.push_back(blob_top_pool1_test_);
-  blob_top_conv2_test_vec_.push_back(blob_top_conv2_test_);
-  conv2_layer.Reshape(blob_bottom_conv2_test_vec_, blob_top_conv2_test_vec_);
-
+  conv2_layer.Reshape(blob_bottom_conv2_vec_, blob_top_conv2_vec_);
   // pool2
-  vector<Blob<Dtype>*> blob_bottom_pool2_test_vec_;
-  vector<Blob<Dtype>*> blob_top_pool2_test_vec_;
-  Blob<Dtype>* const blob_top_pool2_test_ = new Blob<Dtype>();
-
-  blob_bottom_pool2_test_vec_.push_back(blob_top_conv2_test_);
-  blob_top_pool2_test_vec_.push_back(blob_top_pool2_test_);
-  pool2_layer.Reshape(blob_bottom_pool2_test_vec_, blob_top_pool2_test_vec_);
-
+  pool2_layer.Reshape(blob_bottom_pool2_vec_, blob_top_pool2_vec_);
   // ip1
-  vector<Blob<Dtype>*> blob_bottom_ip1_test_vec_;
-  vector<Blob<Dtype>*> blob_top_ip1_test_vec_;
-  Blob<Dtype>* const blob_top_ip1_test_ = new Blob<Dtype>();
-
-  blob_bottom_ip1_test_vec_.push_back(blob_top_pool2_test_);
-  blob_top_ip1_test_vec_.push_back(blob_top_ip1_test_);
-  ip1_layer.Reshape(blob_bottom_ip1_test_vec_, blob_top_ip1_test_vec_);
-
+  ip1_layer.Reshape(blob_bottom_ip1_vec_, blob_top_ip1_vec_);
   // relu
-  vector<Blob<Dtype>*> blob_bottom_relu_test_vec_;
-  vector<Blob<Dtype>*> blob_top_relu_test_vec_;
-
-  blob_bottom_relu_test_vec_.push_back(blob_top_ip1_test_);
-  blob_top_relu_test_vec_.push_back(blob_top_ip1_test_);
-  relu_layer.Reshape(blob_bottom_relu_test_vec_, blob_top_relu_test_vec_);
-
+  relu_layer.Reshape(blob_bottom_relu_vec_, blob_top_relu_vec_);
   // ip2
-  /*vector<Blob<Dtype>*> blob_bottom_ip2_test_vec_;
-  vector<Blob<Dtype>*> blob_top_ip2_test_vec_;
-  Blob<Dtype>* const blob_top_ip2_test_ = new Blob<Dtype>();
-
-  blob_bottom_ip2_test_vec_.push_back(blob_top_ip1_test_);
-  blob_top_ip2_test_vec_.push_back(blob_top_ip2_test_);
-  ip2_layer.Reshape(blob_bottom_ip2_test_vec_, blob_top_ip2_test_vec_);
-  */
-
-  // loss
-  vector<Blob<Dtype>*> blob_bottom_loss_test_vec_;
-  vector<Blob<Dtype>*> blob_top_loss_test_vec_;
-  Blob<Dtype>* const blob_top_loss_test_ = new Blob<Dtype>();
-
-  blob_bottom_loss_test_vec_.push_back(blob_top_ip1_test_);
-  blob_top_loss_test_vec_.push_back(blob_top_loss_test_);
-  layer_loss.Reshape(blob_bottom_loss_test_vec_, blob_top_loss_test_vec_);
-
+  ip2_layer.Reshape(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
   // argmax
   vector<Blob<Dtype>*> blob_bottom_argmax_vec_;
   vector<Blob<Dtype>*> blob_top_argmax_vec_;
 
   Blob<Dtype>* blob_top_argmax_ = new Blob<Dtype>();
 
-  blob_bottom_argmax_vec_.push_back(blob_top_loss_test_);
+  blob_bottom_argmax_vec_.push_back(blob_top_ip2_);
   blob_top_argmax_vec_.push_back(blob_top_argmax_);
 
   LayerParameter layer_argmax_param;
@@ -337,24 +293,24 @@ int main(int argc, char** argv) {
   argmax_layer.SetUp(blob_bottom_argmax_vec_, blob_top_argmax_vec_);
 
   // predict
-  layer_data.Forward(blob_bottom_test_data_vec_, blob_top_test_data_vec_);
-  conv1_layer.Forward(blob_bottom_conv1_test_vec_, blob_top_conv1_test_vec_);
-  pool1_layer.Forward(blob_bottom_pool1_test_vec_, blob_top_pool1_test_vec_);
-  conv2_layer.Forward(blob_bottom_conv2_test_vec_, blob_top_conv2_test_vec_);
-  pool2_layer.Forward(blob_bottom_pool2_test_vec_, blob_top_pool2_test_vec_);
-  ip1_layer.Forward(blob_bottom_ip1_test_vec_, blob_top_ip1_test_vec_);
-  relu_layer.Forward(blob_bottom_relu_test_vec_, blob_top_relu_test_vec_);
-  // ip2_layer.Forward(blob_bottom_ip2_test_vec_, blob_top_ip2_test_vec_);
-  layer_loss.Forward(blob_bottom_loss_test_vec_, blob_top_loss_test_vec_);
+  cout << "Working on test data...\n";
+  layer_test_data.Forward(blob_bottom_test_data_vec_, blob_top_test_data_vec_);
+  conv1_layer.Forward(blob_bottom_conv1_test_vec_, blob_top_conv1_vec_);
+  pool1_layer.Forward(blob_bottom_pool1_vec_, blob_top_pool1_vec_);
+  conv2_layer.Forward(blob_bottom_conv2_vec_, blob_top_conv2_vec_);
+  pool2_layer.Forward(blob_bottom_pool2_vec_, blob_top_pool2_vec_);
+  ip1_layer.Forward(blob_bottom_ip1_vec_, blob_top_ip1_vec_);
+  relu_layer.Forward(blob_bottom_relu_vec_, blob_top_relu_vec_);
+  ip2_layer.Forward(blob_bottom_ip2_vec_, blob_top_ip2_vec_);
   argmax_layer.Forward(blob_bottom_argmax_vec_, blob_top_argmax_vec_);
 
-  int label, max_index, score = 0;
+  cout << "Evaluate the results...\n";
+  int label, score = 0;
   const Dtype* predictions = blob_top_argmax_->cpu_data();
-  for(int c = 0; c < nTest ; c++){
-    max_index = predictions[blob_top_argmax_->offset(c,0,0,0)];
-    // label = data.blob_train_labels->cpu_data()[data.blob_train_labels->offset(max_index,0,0,0)];
-    // if(label == data.blob_test_labels->cpu_data()[data.blob_test_labels->offset(c,0,0,0)])
-    //   score++;
+  for(int c = 0; c < nTest; c++){
+    label = predictions[blob_top_argmax_->offset(c,0,0,0)];
+    if(label == blob_test_label->cpu_data()[blob_test_label->offset(c,0,0,0)])
+      score++;
   }
   cout<<"Test score: "<<score<<" out of "<<nTest<<endl;
   // ==== PREDICTING ====

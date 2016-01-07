@@ -34,4 +34,8 @@ Using softmax technique for classifying MNIST dataset with 10 classes for classi
 
 Score with learning rate 0.1 was 9176 out of 10000. With learning rate 0.01 I got smaller errors while learning and score was about the same, but sometimes it was giving very low scores, while with 0.1 rate it was more stable. With 0.001 the smallest loss while learning fall till almost 2 and scores were about 9000 as well. With 0.9 scores again were about 9000, but errors did not fall below 6. With learning rate 1.5 the picture was the same.
 
+## Assignment6
+
+Learning MNIST data with LeNet - achieved accuracy is about 9700 from 10000 (learning rate 0.1, 921 iterations with 64 batch size)
+
 

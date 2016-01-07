@@ -1,0 +1,1 @@
+/home/stud/adilova/cuda_vision/ass_6_cnn/build-mnist_le_net-Desktop-Default/CMakeFiles/mnist_le_net.dir
