@@ -1,0 +1,26 @@
+# The set of languages for which implicit dependencies are needed:
+SET(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+# The set of files for implicit dependencies of each language:
+SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/stud/adilova/cuda_vision/ass_7_protobuf/test_net/logreg_test.cpp" "/home/stud/adilova/cuda_vision/ass_7_protobuf/build-test_net-Desktop-Default/CMakeFiles/logreg_test.dir/logreg_test.cpp.o"
+  )
+SET(CMAKE_CXX_COMPILER_ID "GNU")
+
+# Targets to which this target links.
+SET(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# The include file search paths:
+SET(CMAKE_C_TARGET_INCLUDE_PATH
+  "/home/stud/adilova/caffe/caffe-rc2/src"
+  "/home/stud/adilova/caffe/caffe-rc2/build/include"
+  "/usr/local/cuda/include"
+  "/usr/include/opencv"
+  "/usr/include/atlas"
+  "/home/stud/adilova/caffe/caffe-rc2/include"
+  )
+SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_Fortran_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})
+SET(CMAKE_ASM_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

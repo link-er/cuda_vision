@@ -15,7 +15,7 @@ using namespace caffe;
 using namespace std;
 typedef double Dtype;
 
-int nIter = 1000;
+int nIter = 5000;
 int nTest = 10000;
 
 int main(int argc, char** argv) {
@@ -185,7 +185,7 @@ int main(int argc, char** argv) {
   // forward and backward iteration
   int n = 0;
   Dtype loss = 1000;
-  while(n < nIter && loss > 0.001){
+  while(n < nIter && loss > 0.00001){
     // forward
     layer_data.Forward(blob_bottom_data_vec_, blob_top_data_vec_);
     conv1_layer.Forward(blob_bottom_conv1_vec_, blob_top_conv1_vec_);

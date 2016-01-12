@@ -12,7 +12,7 @@
 #include "caffe/filler.hpp"
 #include "caffe/net.hpp"
 #include "google/protobuf/text_format.h"
-#include "caffe/sgd_solvers.hpp"
+//#include "caffe/sgd_solvers.hpp"
 
 using namespace caffe;
 using namespace std;
