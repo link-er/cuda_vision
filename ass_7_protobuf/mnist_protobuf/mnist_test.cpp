@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
         "  top: 'label' "
         "  data_param { "
         "    source: '/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb' "
+        "    backend: LMDB "
         "    batch_size: 10000 "
         "  } "
         "} "
@@ -129,7 +130,7 @@ int main(int argc, char** argv) {
 
     // blobs from the forwarded net
     shared_ptr<Blob<Dtype> > blob_label = net_test.blob_by_name("label");
-    shared_ptr<Blob<Dtype> > blob_ip = net_test.blob_by_name("ip");
+    shared_ptr<Blob<Dtype> > blob_ip = net_test.blob_by_name("ip2");
 
     // evaluation
     int score = 0, label, max_label;
@@ -140,7 +141,7 @@ int main(int argc, char** argv) {
         // argmax evaluate
         max_score = 0;
         max_label = 0;
-        for(int i=0; i<clas; i++) {
+        for(int i=0; i<10; i++) {
             scores[i] = blob_ip->mutable_cpu_data()[blob_ip->offset(n,i,0,0)];
             if(scores[i] > max_score) {
                 max_score = scores[i];

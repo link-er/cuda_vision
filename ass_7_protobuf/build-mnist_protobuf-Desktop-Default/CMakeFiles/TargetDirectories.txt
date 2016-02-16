@@ -1,0 +1,2 @@
+/home/stud/adilova/cuda_vision/ass_7_protobuf/build-mnist_protobuf-Desktop-Default/CMakeFiles/mnist_test.dir
+/home/stud/adilova/cuda_vision/ass_7_protobuf/build-mnist_protobuf-Desktop-Default/CMakeFiles/mnist_train.dir

@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
         "  top: 'label' "
         "  data_param { "
         "    source: '/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_train_lmdb' "
+        "    backend: LMDB "
         "    batch_size: 64 "
         "  } "
         "  transform_param { "
