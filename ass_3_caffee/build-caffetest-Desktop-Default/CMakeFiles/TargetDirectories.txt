@@ -1,2 +1,0 @@
-/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/CMakeFiles/test_blob.dir
-/home/stud/adilova/cuda_vision/ass_3_caffee/build-caffetest-Desktop-Default/CMakeFiles/test_math.dir

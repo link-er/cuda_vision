@@ -1,2 +1,0 @@
-/usr/bin/ar cr libmultiplier.a  CMakeFiles/multiplier.dir/./multiplier_generated_multiplier.cu.o
-/usr/bin/ranlib libmultiplier.a

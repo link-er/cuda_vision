@@ -1,3 +1,0 @@
-/home/stud/adilova/cuda_vision/ass_7_protobuf/build-test_net-Desktop-Default/CMakeFiles/bindb.dir
-/home/stud/adilova/cuda_vision/ass_7_protobuf/build-test_net-Desktop-Default/CMakeFiles/logreg_test.dir
-/home/stud/adilova/cuda_vision/ass_7_protobuf/build-test_net-Desktop-Default/CMakeFiles/logreg_train.dir

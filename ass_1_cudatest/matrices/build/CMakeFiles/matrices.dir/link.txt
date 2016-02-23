@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/matrices.dir/main.o CMakeFiles/matrices.dir/addcpu.o CMakeFiles/matrices.dir/./matrices_generated_addgpu.cu.o  -o matrices -rdynamic /usr/local/cuda/lib64/libcudart.so -Wl,-rpath,/usr/local/cuda/lib64 
