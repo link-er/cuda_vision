@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
         "    scale: 0.00390625 "
         "  } "
         "  data_param { "
-        "    source: '/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb' "
+        "    source: '/home/stud/adilova/caffe/caffe-rc3/examples/mnist/mnist_test_lmdb' "
         "    backend: LMDB "
         "    batch_size: 10000 "
         "  } "

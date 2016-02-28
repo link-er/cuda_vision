@@ -11,6 +11,7 @@
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
 #include "caffe/net.hpp"
+#include "caffe/sgd_solvers.hpp"
 #include "google/protobuf/text_format.h"
 
 using namespace caffe;
@@ -27,7 +28,7 @@ int main(int argc, char** argv) {
         "  top: 'data' "
         "  top: 'label' "
         "  data_param { "
-        "    source: '/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_train_lmdb' "
+        "    source: '/home/stud/adilova/caffe/caffe-rc3/examples/mnist/mnist_train_lmdb' "
         "    backend: LMDB "
         "    batch_size: 64 "
         "  } "
@@ -173,10 +174,11 @@ int main(int argc, char** argv) {
     param_solver.set_momentum(0.9);
     param_solver.set_gamma(0.0001);
     param_solver.set_snapshot(1000);
+    param_solver.set_snapshot_prefix("mnist_train_");
     param_solver.set_display(100);
     param_solver.set_solver_mode(SolverParameter_SolverMode_GPU);
 
     // training
-    SGDSolver<Dtype> solver(param_solver);
+    AdaDeltaSolver<Dtype> solver(param_solver);
     solver.Solve();
 }

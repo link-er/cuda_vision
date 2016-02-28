@@ -6,10 +6,18 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "caffe/caffe.hpp"
+#include <caffe/caffe.hpp>
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
+
+#include "caffe/layers/data_layer.hpp"
+#include "caffe/layers/conv_layer.hpp"
+#include "caffe/layers/pooling_layer.hpp"
+#include "caffe/layers/relu_layer.hpp"
+#include "caffe/layers/inner_product_layer.hpp"
+#include "caffe/layers/argmax_layer.hpp"
+#include "caffe/layers/softmax_loss_layer.hpp"
 
 using namespace caffe;
 using namespace std;
@@ -35,7 +43,7 @@ int main(int argc, char** argv) {
   LayerParameter layer_data_param;
   DataParameter* data_param = layer_data_param.mutable_data_param();
   data_param->set_batch_size(64);
-  data_param->set_source("/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_train_lmdb");
+  data_param->set_source("/home/stud/adilova/caffe/caffe-rc3/examples/mnist/mnist_train_lmdb");
   data_param->set_backend(caffe::DataParameter_DB_LMDB);
   // transforming input data - normilizing it from 0~255 to 0~1
   TransformationParameter* transform_param = layer_data_param.mutable_transform_param();
@@ -57,7 +65,7 @@ int main(int argc, char** argv) {
   LayerParameter layer_conv1_param;
   ConvolutionParameter* conv1_param = layer_conv1_param.mutable_convolution_param();
   conv1_param->set_num_output(20);
-  conv1_param->set_kernel_size(5);
+  conv1_param->add_kernel_size(5);
   conv1_param->mutable_weight_filler()->set_type("xavier");
   ConvolutionLayer<Dtype> conv1_layer(layer_conv1_param);
   conv1_layer.SetUp(blob_bottom_conv1_vec_, blob_top_conv1_vec_);
@@ -92,7 +100,7 @@ int main(int argc, char** argv) {
   LayerParameter layer_conv2_param;
   ConvolutionParameter* conv2_param = layer_conv2_param.mutable_convolution_param();
   conv2_param->set_num_output(50);
-  conv2_param->set_kernel_size(5);
+  conv2_param->add_kernel_size(5);
   conv2_param->mutable_weight_filler()->set_type("xavier");
   ConvolutionLayer<Dtype> conv2_layer(layer_conv2_param);
   conv2_layer.SetUp(blob_bottom_conv2_vec_, blob_top_conv2_vec_);
@@ -250,7 +258,7 @@ int main(int argc, char** argv) {
   LayerParameter layer_test_data_param;
   DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
   test_data_param->set_batch_size(nTest);
-  test_data_param->set_source("/home/stud/adilova/caffe/caffe-rc2/examples/mnist/mnist_test_lmdb");
+  test_data_param->set_source("/home/stud/adilova/caffe/caffe-rc3/examples/mnist/mnist_test_lmdb");
   test_data_param->set_backend(caffe::DataParameter_DB_LMDB);
   // transforming input data - normilizing it from 0~255 to 0~1
   TransformationParameter* transform_test_param = layer_test_data_param.mutable_transform_param();

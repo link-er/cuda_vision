@@ -38,4 +38,12 @@ Score with learning rate 0.1 was 9176 out of 10000. With learning rate 0.01 I go
 
 Learning MNIST data with LeNet - achieved accuracy is about 9700 from 10000 (learning rate 0.1, 921 iterations with 64 batch size). When learning was held for 5000 iterations the result was about 9909 out of 10000.
 
+## Assignment7
 
+Results of working network with 5000 iterations were:
+
+Loss: 0.0341908
+
+Test score: 9892 out of 10000
+
+So it is about the same as were in previous net. 
