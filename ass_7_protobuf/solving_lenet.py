@@ -60,15 +60,17 @@ solver.test_nets[0].forward()  # test net (there can be more than one)
 # we use a little trick to tile the first eight images
 plt.imshow(solver.net.blobs['data'].data[:8, 0].transpose(1, 0, 2).reshape(28, 8*28), cmap='gray'); plt.axis('off')
 print 'train labels:', solver.net.blobs['label'].data[:8]
-plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/train.pdf')
+plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/train.png')
 
 plt.imshow(solver.test_nets[0].blobs['data'].data[:8, 0].transpose(1, 0, 2).reshape(28, 8*28), cmap='gray'); plt.axis('off')
 print 'test labels:', solver.test_nets[0].blobs['label'].data[:8]
-plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/test.pdf')
+plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/test.png')
 
 solver.step(1)
 plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 5, 5, 5).transpose(0, 2, 1, 3).reshape(4*5, 5*5), cmap='gray'); plt.axis('off')
-plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/conv1.pdf')
+plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/conv1.png')
+
+plt.close('all')
 
 #time
 niter = 200
@@ -110,16 +112,29 @@ ax1.set_xlabel('iteration')
 ax1.set_ylabel('train loss')
 ax2.set_ylabel('test accuracy')
 ax2.set_title('Test Accuracy: {:.2f}'.format(test_acc[-1]))
-plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/test_accuracy.pdf')
+plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/test_accuracy.png')
 
 for i in range(8):
     plt.figure(figsize=(2, 2))
     plt.imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
-    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/original' + str(i) + '.pdf')
+    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/' + str(i) + '_original.png')
     plt.figure(figsize=(10, 2))
     plt.imshow(output[:50, i].T, interpolation='nearest', cmap='gray')
     plt.xlabel('iteration')
     plt.ylabel('label')
-    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/training' + str(i) + '.pdf')
+    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/' + str(i) + '_training.png')
 
+plt.close('all')
+
+for i in range(8):
+    plt.figure(figsize=(2, 2))
+    plt.imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
+    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/' + str(i) + '_original_cleaned.png')
+    plt.figure(figsize=(10, 2))
+    plt.imshow(np.exp(output[:50, i].T) / np.exp(output[:50, i].T).sum(0), interpolation='nearest', cmap='gray')
+    plt.xlabel('iteration')
+    plt.ylabel('label')
+    plt.savefig('/home/stud/adilova/cuda_vision/ass_7_protobuf/' + str(i) + '_training_cleaned.png')
+
+plt.close('all')
 
