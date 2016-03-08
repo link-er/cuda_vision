@@ -12,6 +12,8 @@
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
+#include "caffe/layers/inner_product_layer.hpp"
+#include "caffe/layers/softmax_loss_layer.hpp"
 #include "mnist.h"
 
 using namespace caffe;
@@ -28,7 +30,7 @@ int nIter = 1000;
 int main(int argc, char** argv) {
     Caffe::set_mode(Caffe::GPU);
 
-    MNIST data("/home/stud/adilova/caffe/caffe-rc2/data/mnist/");
+    MNIST data("/home/VI/stud/adilova/caffe-master/data/mnist/");
 
     // read MNIST data in blobs
     // data.blob_train_images, data.blob_test_images
