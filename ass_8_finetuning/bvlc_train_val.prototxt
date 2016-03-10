@@ -1,40 +1,56 @@
-name: "FinetuneCifar10CaffeNet"
+name: "CaffeNet"
 layer {
-  name: "cifar"
+  name: "data"
   type: "Data"
   top: "data"
   top: "label"
   include {
     phase: TRAIN
   }
+  transform_param {
+    mirror: true
+    crop_size: 32
+    mean_file: "/home/VI/stud/adilova/caffe-master/data/ilsvrc12/imagenet_mean.binaryproto"
+  }
+# mean pixel / channel-wise mean instead of mean image
+#  transform_param {
+#    crop_size: 227
+#    mean_value: 104
+#    mean_value: 117
+#    mean_value: 123
+#    mirror: true
+#  }
   data_param {
-    source: "/home/VI/stud/adilova/cifar10/train_256_lmdb"
+    source: "/home/VI/stud/adilova/caffe-master/examples/imagenet/ilsvrc12_train_lmdb"
     batch_size: 256
     backend: LMDB
   }
-  transform_param {
-    mirror: true
-    crop_size: 227
-    mean_file: "/home/VI/stud/adilova/cifar10/image_mean.binaryproto"
-  }
 }
 layer {
-  name: "cifar"
+  name: "data"
   type: "Data"
   top: "data"
   top: "label"
   include {
     phase: TEST
   }
+  transform_param {
+    mirror: false
+    crop_size: 32
+    mean_file: "/home/VI/stud/adilova/caffe-master/data/ilsvrc12/imagenet_mean.binaryproto"
+  }
+# mean pixel / channel-wise mean instead of mean image
+#  transform_param {
+#    crop_size: 227
+#    mean_value: 104
+#    mean_value: 117
+#    mean_value: 123
+#    mirror: false
+#  }
   data_param {
-    source: "/home/VI/stud/adilova/cifar10/test_256_lmdb"
+    source: "/home/VI/stud/adilova/caffe-master/examples/imagenet/ilsvrc12_val_lmdb"
     batch_size: 50
     backend: LMDB
-  }
-  transform_param {
-    mirror: true
-    crop_size: 227
-    mean_file: "/home/VI/stud/adilova/cifar10/image_mean.binaryproto"
   }
 }
 layer {
@@ -382,4 +398,3 @@ layer {
   bottom: "label"
   top: "loss"
 }
-
