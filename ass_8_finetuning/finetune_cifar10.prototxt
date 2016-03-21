@@ -34,7 +34,7 @@ layer {
   transform_param {
     mirror: true
     crop_size: 227
-    mean_file: "/home/VI/stud/adilova/cifar10/image_mean.binaryproto"
+    mean_file: "/home/VI/stud/adilova/cifar10/test_image_mean.binaryproto"
   }
 }
 layer {
