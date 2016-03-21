@@ -47,3 +47,7 @@ Loss: 0.0341908
 Test score: 9892 out of 10000
 
 So it is about the same as were in previous net. 
+
+## Assignment8
+
+For finetuning CIFAR10 resized to 256x256 dataset the accuracy result, after 200 iterations, was 0.742000001669

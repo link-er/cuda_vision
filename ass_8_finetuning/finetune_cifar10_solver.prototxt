@@ -14,7 +14,7 @@ max_iter: 100000
 momentum: 0.9
 weight_decay: 0.0005
 snapshot: 100
-snapshot_prefix: "finetune_cifar10/"
+snapshot_prefix: "/home/VI/stud/adilova/cifar10/finetune_cifar10/"
 # uncomment the following to default to CPU mode solving
 # solver_mode: CPU
 
