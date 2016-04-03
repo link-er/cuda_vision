@@ -30,6 +30,7 @@ int nIter = 1000;
 int main(int argc, char** argv) {
     Caffe::set_mode(Caffe::GPU);
 
+    // reading train CIFAR data into blobs
     vector<Blob<Dtype>*> blob_bottom_data_vec;
     vector<Blob<Dtype>*> blob_top_data_vec;
     Blob<Dtype>* const blob_data = new Blob<Dtype>();
@@ -40,23 +41,50 @@ int main(int argc, char** argv) {
 
     LayerParameter layer_data_param;
     DataParameter* data_param = layer_data_param.mutable_data_param();
-    // data_param->set_batch_size(64);
-    data_param->set_source("/home/VI/stud/adilova/caffe-master/examples/cifar10/cifar10_train_lmdb");
+    data_param->set_batch_size(n);
+    data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_train_lmdb");
     data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
-    // TransformationParameter* transform_param = layer_data_param.mutable_transform_param();
-    // transform_param->set_scale(1./255.);
+    TransformationParameter* transform_param = layer_data_param.mutable_transform_param();
+    transform_param->set_mean_file("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/mean.binaryproto");
 
     DataLayer<Dtype> layer_data(layer_data_param);
     layer_data.SetUp(blob_bottom_data_vec, blob_top_data_vec);
 
+    layer_data.Forward(blob_bottom_data_vec, blob_top_data_vec);
+
+    // reading test CIFAR data into blobs
+    vector<Blob<Dtype>*> blob_test_bottom_data_vec;
+    vector<Blob<Dtype>*> blob_test_top_data_vec;
+    Blob<Dtype>* const blob_test_data = new Blob<Dtype>();
+    Blob<Dtype>* const blob_test_label = new Blob<Dtype>();
+
+    blob_test_top_data_vec.push_back(blob_test_data);
+    blob_test_top_data_vec.push_back(blob_test_label);
+
+    LayerParameter layer_test_data_param;
+    DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
+    test_data_param->set_batch_size(m);
+    test_data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_test_lmdb");
+    test_data_param->set_backend(caffe::DataParameter_DB_LMDB);
+
+    TransformationParameter* test_transform_param = layer_test_data_param.mutable_transform_param();
+    test_transform_param->set_mean_file("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/mean.binaryproto");
+
+    DataLayer<Dtype> layer_test_data(layer_test_data_param);
+    layer_test_data.SetUp(blob_test_bottom_data_vec, blob_test_top_data_vec);
+
+    layer_test_data.Forward(blob_test_bottom_data_vec, blob_test_top_data_vec);
+
+    // ===================
+    cout<<"Data read succefully."<<endl;
 
     // set inner product layer
     vector<Blob<Dtype>*> blob_bottom_ip_vec_;
     vector<Blob<Dtype>*> blob_top_ip_vec_;
     Blob<Dtype>* const blob_top_ip_ = new Blob<Dtype>();
 
-    blob_bottom_ip_vec_.push_back(data.blob_train_images);
+    blob_bottom_ip_vec_.push_back(blob_data);
     blob_top_ip_vec_.push_back(blob_top_ip_);
 
     LayerParameter layer_ip_param;
@@ -73,7 +101,7 @@ int main(int argc, char** argv) {
     Blob<Dtype>* const blob_top_loss_ = new Blob<Dtype>();
 
     blob_bottom_loss_vec_.push_back(blob_top_ip_);
-    blob_bottom_loss_vec_.push_back(data.blob_train_labels);
+    blob_bottom_loss_vec_.push_back(blob_label);
     blob_top_loss_vec_.push_back(blob_top_loss_);
 
     LayerParameter layer_loss_param;
@@ -82,7 +110,7 @@ int main(int argc, char** argv) {
 
     clock_t tStart = clock();
     ofstream learning_curve;
-    learning_curve.open("/home/stud/adilova/cuda_vision/ass_5_layers/mnist_layers/errors.txt");
+    learning_curve.open("/home/stud/adilova/cuda_vision/ass_9_cifar/log_classifier/errors.txt");
     // forward and backward iteration
     for(int n=0; n<nIter; n++){
         // forward
@@ -113,7 +141,7 @@ int main(int argc, char** argv) {
     vector<Blob<Dtype>*> blob_top_ip_test_vec_;
     Blob<Dtype>* const blob_top_ip_test_ = new Blob<Dtype>();
 
-    blob_bottom_ip_test_vec_.push_back(data.blob_test_images);
+    blob_bottom_ip_test_vec_.push_back(blob_test_data);
     blob_top_ip_test_vec_.push_back(blob_top_ip_test_);
 
     layer_ip.Reshape(blob_bottom_ip_test_vec_, blob_top_ip_test_vec_);
@@ -124,7 +152,7 @@ int main(int argc, char** argv) {
     Dtype max_score;
     Dtype* scores = new Dtype[10];
     for (int n=0; n<nTestData; n++){
-        label = data.blob_test_labels->mutable_cpu_data()[data.blob_test_labels->offset(n,0,0,0)];
+        label = blob_test_label->mutable_cpu_data()[blob_test_label->offset(n,0,0,0)];
         // argmax evaluate
         max_score = 0;
         max_label = 0;
