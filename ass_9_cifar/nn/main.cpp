@@ -58,14 +58,20 @@ int main(int argc, char** argv) {
     Blob<Dtype>* const blob_test_data = new Blob<Dtype>();
     Blob<Dtype>* const blob_test_label = new Blob<Dtype>();
 
-    blob_test_bottom_data_vec.push_back(blob_test_data);
+    blob_test_top_data_vec.push_back(blob_test_data);
     blob_test_top_data_vec.push_back(blob_test_label);
 
-    data_param->set_batch_size(10000);
-    data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_test_lmdb");
-    data_param->set_backend(caffe::DataParameter_DB_LMDB);
+    LayerParameter layer_test_data_param;
+    DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
+    test_data_param->set_batch_size(10000);
+    test_data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_test_lmdb");
+    test_data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
-    layer_data.SetUp(blob_test_bottom_data_vec, blob_test_top_data_vec);
+    TransformationParameter* test_transform_param = layer_test_data_param.mutable_transform_param();
+    test_transform_param->set_mean_file("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/mean.binaryproto");
+
+    DataLayer<Dtype> layer_test_data(layer_test_data_param);
+    layer_test_data.SetUp(blob_test_bottom_data_vec, blob_test_top_data_vec);
 
     layer_test_data.Forward(blob_test_bottom_data_vec, blob_test_top_data_vec);
 
@@ -176,7 +182,7 @@ int main(int argc, char** argv) {
     delete result_blob;
     delete blob_label;
     delete blob_test_label;
-
+*/
     return 0;
 }
 
