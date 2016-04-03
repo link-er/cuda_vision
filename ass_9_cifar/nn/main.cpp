@@ -26,8 +26,8 @@ int main(int argc, char** argv) {
 
     LayerParameter layer_data_param;
     DataParameter* data_param = layer_data_param.mutable_data_param();
-    data_param->set_batch_size(50000);
-    data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_train_lmdb");
+    data_param->set_batch_size(10000);
+    data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_test_lmdb");
     data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
     TransformationParameter* transform_param = layer_data_param.mutable_transform_param();
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     cout<<"label: "<<label<<" "<<endl;*/
 
     // reading test CIFAR data into blobs
-    vector<Blob<Dtype>*> blob_test_bottom_data_vec;
+    /*vector<Blob<Dtype>*> blob_test_bottom_data_vec;
     vector<Blob<Dtype>*> blob_test_top_data_vec;
     Blob<Dtype>* const blob_test_data = new Blob<Dtype>();
     Blob<Dtype>* const blob_test_label = new Blob<Dtype>();
@@ -154,7 +154,7 @@ int main(int argc, char** argv) {
     // cout << "Error rate is " << errors*1.0/m << "\n";
     // // ============= ARGMAX LAYER ================
 
-    ============= MANUAL RESULTS COUNTiNG ==============
+    //============= MANUAL RESULTS COUNTiNG ==============
     Dtype minimal_dist, current_dist;
     int minimal_index, label, errors = 0;
 
@@ -177,12 +177,12 @@ int main(int argc, char** argv) {
           errors++;
     }
     cout << "\nError rate is " << errors*1.0/m << "\n";
-    ============= MANUAL RESULTS COUNTiNG ==============
+    //============= MANUAL RESULTS COUNTiNG ==============
 
     delete result_blob;
     delete blob_label;
     delete blob_test_label;
-
+*/
     return 0;
 }
 
