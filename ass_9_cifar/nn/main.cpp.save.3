@@ -12,8 +12,8 @@ typedef double Dtype;
 using namespace caffe;
 using namespace std;
 
-int n = 40000;
-int m = 10000;
+int n = 30000;
+int m = 7000;
 int d = 32*32*3;
 
 int main(int argc, char** argv) {
@@ -82,6 +82,7 @@ int main(int argc, char** argv) {
     // ===================
     cout<<"Data read succefully."<<endl;
 
+    i   
     blob_data->Reshape(1, 1, n, d);
     blob_test_data->Reshape(1, 1, m, d);
 
