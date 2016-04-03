@@ -12,9 +12,6 @@
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
-#include "caffe/layers/inner_product_layer.hpp"
-#include "caffe/layers/softmax_loss_layer.hpp"
-#include "mnist.h"
 
 using namespace caffe;
 using namespace std;
@@ -41,7 +38,7 @@ int main(int argc, char** argv) {
 
     LayerParameter layer_data_param;
     DataParameter* data_param = layer_data_param.mutable_data_param();
-    data_param->set_batch_size(n);
+    data_param->set_batch_size(nTrainData);
     data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_train_lmdb");
     data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
@@ -64,7 +61,7 @@ int main(int argc, char** argv) {
 
     LayerParameter layer_test_data_param;
     DataParameter* test_data_param = layer_test_data_param.mutable_data_param();
-    test_data_param->set_batch_size(m);
+    test_data_param->set_batch_size(nTestData);
     test_data_param->set_source("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/cifar10_test_lmdb");
     test_data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
