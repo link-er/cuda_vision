@@ -33,11 +33,17 @@ int main(int argc, char** argv) {
     transform_param->set_mean_file("/home/VI/stud/adilova/caffe-rc2/examples/cifar10/mean.binaryproto");
 
     DataLayer<Dtype> layer_data(layer_data_param);
-    layer_data.SetUp(blob_bottom_data_vec, blob_top_data_vec);
+    layer_data.SetUp(blob_bottom_dat
 
-    layer_data.Forward(blob_bottom_data_vec, blob_top_data_vec);
+ a_vec, blob_top_data_vec);
 
-    /*int n = 0;
+    cout<<"data read"<<endl;
+
+    //layer_data.Forward(blob_bottom_data_vec, blob_top_data_vec);
+
+    // blob_data, blob_label ?
+
+    int n = 0;
     for(int i=0;i<3;i++){
         for(int j=0;j<32;j++){
             for(int k=0;k<32;k++){
@@ -49,14 +55,14 @@ int main(int argc, char** argv) {
         cout<<endl;
     }
     int label = blob_label->cpu_data()[blob_label->offset(n,0,0,0)];
-    cout<<"label: "<<label<<" "<<endl;*/
+    cout<<"label: "<<label<<" "<<endl;
 
-    int n = 50000;
-    int m = 10000;
-    int d = 32*32*3;
+    // int n = 50000;
+    // int m = 10000;
+    // int d = 32*32*3;
 
-    blob_data->Reshape(1, 1, n, d);
-    ->Reshape(1, 1, m, d);
+    // data.blob_train_images->Reshape(1, 1, n, d);
+    // data.blob_test_images->Reshape(1, 1, m, d);
 
     // cout << "Reshaped\n";
 
