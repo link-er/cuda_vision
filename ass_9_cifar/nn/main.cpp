@@ -88,10 +88,10 @@ int main(int argc, char** argv) {
     cout << "Reshaped\n";
 
     Blob<Dtype>* blob_train_out = new Blob<Dtype>(1, 1, n, d);
-    caffe_gpu_powx<Dtype>(data.blob_train_images->count(), data.blob_train_images->gpu_data(), 2.0, blob_train_out->mutable_gpu_data());
+    caffe_gpu_powx<Dtype>(blob_data->count(), blob_data->gpu_data(), 2.0, blob_train_out->mutable_gpu_data());
 
     Blob<Dtype>* blob_test_out = new Blob<Dtype>(1, 1, m, d);
-    caffe_gpu_powx<Dtype>(data.blob_test_images->count(), data.blob_test_images->gpu_data(), 2.0, blob_test_out->mutable_gpu_data());
+    caffe_gpu_powx<Dtype>(blob_test_data->count(), blob_test_data->gpu_data(), 2.0, blob_test_out->mutable_gpu_data());
 
     cout << "Squared\n";
 
@@ -117,11 +117,11 @@ int main(int argc, char** argv) {
     delete blob_test_out;
     cout << "Multiplied by unary and added the first one multiplied\n";
 
-    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, -2., data.blob_test_images->gpu_data(),
-                          data.blob_train_images->gpu_data(), 1., result_blob->mutable_gpu_data());
+    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, -2., blob_test_data->gpu_data(),
+                          blob_data->gpu_data(), 1., result_blob->mutable_gpu_data());
     cout << "Got final distances\n";
-    delete data.blob_train_images;
-    delete data.blob_test_images;
+    delete blob_data;
+    delete blob_test_data;
 
     // // ============= ARGMAX LAYER ================
     // cout << "Preparing layer\n";
@@ -169,19 +169,19 @@ int main(int argc, char** argv) {
           minimal_index = r;
         }
       }
-      label = data.blob_train_labels->cpu_data()[data.blob_train_labels->offset(minimal_index,0,0,0)];
+      label = blob_label->cpu_data()[blob_label->offset(minimal_index,0,0,0)];
       if(c%100 == 0)
         cout << ".";
 
-      if(label != data.blob_test_labels->cpu_data()[data.blob_test_labels->offset(c,0,0,0)])
+      if(label != blob_test_label->cpu_data()[blob_test_label->offset(c,0,0,0)])
           errors++;
     }
     cout << "\nError rate is " << errors*1.0/m << "\n";
     ============= MANUAL RESULTS COUNTiNG ==============
 
     delete result_blob;
-    delete data.blob_train_labels;
-    delete data.blob_test_labels;
+    delete blob_label;
+    delete blob_test_label;
 
     return 0;
 }
