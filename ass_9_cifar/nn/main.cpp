@@ -19,7 +19,7 @@ int m = 10000;
 int d = 32*32*3;
 
 int main(int argc, char** argv) {
-    Caffe::set_mode(Caffe::CPU);
+    Caffe::set_mode(Caffe::GPU);
 
     // reading train CIFAR data into blobs
     vector<Blob<Dtype>*> blob_bottom_data_vec;
@@ -92,10 +92,10 @@ int main(int argc, char** argv) {
     clock_t tStart = clock();
 
     Blob<Dtype>* blob_train_out = new Blob<Dtype>(1, 1, n, d);
-    caffe_powx<Dtype>(blob_data->count(), blob_data->cpu_data(), 2.0, blob_train_out->mutable_cpu_data());
+    caffe_gpu_powx<Dtype>(blob_data->count(), blob_data->gpu_data(), 2.0, blob_train_out->mutable_gpu_data());
 
     Blob<Dtype>* blob_test_out = new Blob<Dtype>(1, 1, m, d);
-    caffe_powx<Dtype>(blob_test_data->count(), blob_test_data->cpu_data(), 2.0, blob_test_out->mutable_cpu_data());
+    caffe_gpu_powx<Dtype>(blob_test_data->count(), blob_test_data->gpu_data(), 2.0, blob_test_out->mutable_gpu_data());
 
     cout << "Squared\n";
 
@@ -107,22 +107,22 @@ int main(int argc, char** argv) {
     filler.Fill(unary_blob1);
 
     Blob<Dtype>* result_blob = new Blob<Dtype>(1, 1, m, n);
-    caffe_cpu_gemm<Dtype>(CblasTrans, CblasTrans, m, n, d, 1., unary_blob1->cpu_data(), blob_train_out->cpu_data(),
-                          0., result_blob->mutable_cpu_data());
+    caffe_gpu_gemm<Dtype>(CblasTrans, CblasTrans, m, n, d, 1., unary_blob1->gpu_data(), blob_train_out->gpu_data(),
+                          0., result_blob->mutable_gpu_data());
     delete unary_blob1;
     delete blob_train_out;
 
     Blob<Dtype>* unary_blob2 = new Blob<Dtype>(1, 1, n, d);
     filler.Fill(unary_blob2);
 
-    caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, 1, blob_test_out->cpu_data(), unary_blob2->cpu_data(),
-                          1, result_blob->mutable_cpu_data());
+    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, 1, blob_test_out->gpu_data(), unary_blob2->gpu_data(),
+                          1, result_blob->mutable_gpu_data());
     delete unary_blob2;
     delete blob_test_out;
     cout << "Multiplied by unary and added the first one multiplied\n";
 
-    caffe_cpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, -2., blob_test_data->cpu_data(),
-                          blob_data->cpu_data(), 1., result_blob->mutable_cpu_data());
+    caffe_gpu_gemm<Dtype>(CblasNoTrans, CblasTrans, m, n, d, -2., blob_test_data->gpu_data(),
+                          blob_data->gpu_data(), 1., result_blob->mutable_gpu_data());
     cout << "Got final distances\n";
     delete blob_data;
     delete blob_test_data;
