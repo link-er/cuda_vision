@@ -24,25 +24,20 @@ print [(k, v[0].data.shape) for k, v in solver.net.params.items()]
 solver.net.forward()  # train net
 solver.test_nets[0].forward()  # test net (there can be more than one)
 
-# we use a little trick to tile the first eight images
-#print solver.net.blobs['data'].data[0, :, :, :].shape
-#plt.imshow(solver.net.blobs['data'].data[0, :, :, :]).reshape(3, 32*32); plt.axis('off')
-print 'train labels:', solver.net.blobs['label'].data[:10]
-#plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/train.png')
-
-# plt.imshow(solver.test_nets[0].blobs['data'].data[:8, 0].transpose(1, 0, 2).reshape(28, 8*28), cmap='gray'); plt.axis('off')
-print 'test labels:', solver.test_nets[0].blobs['label'].data[:8]
-# plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/test.png')
-
 solver.step(1)
-print solver.net.params['conv1'][0].diff[:, 0].shape
 plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
-plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1.png')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1_1.png')
+
+plt.imshow(solver.net.params['conv2'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv2_1.png')
+
+plt.imshow(solver.net.params['conv2'][0].diff[:, 0].reshape(8, 8, 5, 5).transpose(0, 2, 1, 3).reshape(8*8, 5*5), cmap='gray'); plt.axis('off')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv3_1.png')
 
 plt.close('all')
 
 #time
-niter = 200
+niter = 500
 test_interval = 25
 # losses will also be stored in the log
 train_loss = np.zeros(niter)
@@ -73,6 +68,17 @@ for it in range(niter):
                            == solver.test_nets[0].blobs['label'].data)
         test_acc[it // test_interval] = correct / 1e4
 
+plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1_2.png')
+
+plt.imshow(solver.net.params['conv2'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv2_2.png')
+
+plt.imshow(solver.net.params['conv2'][0].diff[:, 0].reshape(8, 8, 5, 5).transpose(0, 2, 1, 3).reshape(8*8, 5*5), cmap='gray'); plt.axis('off')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv3_2.png')
+
+plt.close('all')
+
 _, ax1 = plt.subplots()
 ax2 = ax1.twinx()
 ax1.plot(np.arange(niter), train_loss)
@@ -82,27 +88,3 @@ ax1.set_ylabel('train loss')
 ax2.set_ylabel('test accuracy')
 ax2.set_title('Test Accuracy: {:.2f}'.format(test_acc[-1]))
 plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/test_accuracy.png')
-
-# for i in range(8):
-#     plt.figure(figsize=(2, 2))
-#     plt.imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
-#     plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/' + str(i) + '_original.png')
-#     plt.figure(figsize=(10, 2))
-#     plt.imshow(output[:50, i].T, interpolation='nearest', cmap='gray')
-#     plt.xlabel('iteration')
-#     plt.ylabel('label')
-#     plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/' + str(i) + '_training.png')
-
-# plt.close('all')
-
-# for i in range(8):
-#     plt.figure(figsize=(2, 2))
-#     plt.imshow(solver.test_nets[0].blobs['data'].data[i, 0], cmap='gray')
-#     plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/' + str(i) + '_original_cleaned.png')
-#     plt.figure(figsize=(10, 2))
-#     plt.imshow(np.exp(output[:50, i].T) / np.exp(output[:50, i].T).sum(0), interpolation='nearest', cmap='gray')
-#     plt.xlabel('iteration')
-#     plt.ylabel('label')
-#     plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/' + str(i) + '_training_cleaned.png')
-
-# plt.close('all')
