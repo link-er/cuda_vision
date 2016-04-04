@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import lmdb
 from pylab import *
 import caffe
+import time
 
 caffe.set_device(0)
 caffe.set_mode_gpu()
@@ -44,6 +45,7 @@ train_loss = np.zeros(niter)
 test_acc = np.zeros(int(np.ceil(niter / test_interval)))
 output = np.zeros((niter, 8, 10))
 
+start = time.time()
 # the main solver loop
 for it in range(niter):
     solver.step(1)  # SGD by Caffe
@@ -67,6 +69,9 @@ for it in range(niter):
             correct += sum(solver.test_nets[0].blobs['ip1'].data.argmax(1)
                            == solver.test_nets[0].blobs['label'].data)
         test_acc[it // test_interval] = correct / 1e4
+
+end = time.time()
+print "Training time: " + str(end - start)
 
 plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
 plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1_2.png')
