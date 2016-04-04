@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
 
     clock_t tStart = clock();
     ofstream learning_curve;
-    learning_curve.open("/home/stud/adilova/cuda_vision/ass_9_cifar/log_classifier/errors.txt");
+    learning_curve.open("/home/VI/stud/adilova/cuda_vision/ass_9_cifar/log_classifier/errors.txt");
     // forward and backward iteration
     for(int n=0; n<nIter; n++){
         // forward
