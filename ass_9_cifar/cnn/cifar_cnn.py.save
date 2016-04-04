@@ -25,19 +25,21 @@ solver.net.forward()  # train net
 solver.test_nets[0].forward()  # test net (there can be more than one)
 
 # we use a little trick to tile the first eight images
-#print solver.net.blobs['data'].data[0, :, :, :].shape
-#plt.imshow(solver.net.blobs['data'].data[0, :, :, :]).reshape(3, 32*32); plt.axis('off')
+print solver.net.blobs['data'].data[xrange(0,10), :, :, :].shape
+plt.imshow(solver.net.blobs['data'].data[xrange(0,10), :, :, :]).transpose(11111
+
+
+); plt.axis('off')
 print 'train labels:', solver.net.blobs['label'].data[:10]
-#plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/train.png')
+plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/train.png')
 
 # plt.imshow(solver.test_nets[0].blobs['data'].data[:8, 0].transpose(1, 0, 2).reshape(28, 8*28), cmap='gray'); plt.axis('off')
 print 'test labels:', solver.test_nets[0].blobs['label'].data[:8]
 # plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/test.png')
 
 solver.step(1)
-print solver.net.params['conv1'][0].diff[:, 0].shape
-plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 8, 5, 5).transpose(0, 2, 1, 3).reshape(4*8, 5*5), cmap='gray'); plt.axis('off')
-plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1.png')
+# plt.imshow(solver.net.params['conv1'][0].diff[:, 0].reshape(4, 5, 5, 5).transpose(0, 2, 1, 3).reshape(4*5, 5*5), cmap='gray'); plt.axis('off')
+# plt.savefig('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/conv1.png')
 
 plt.close('all')
 
