@@ -25,7 +25,7 @@ int clas = 10;
 int nIter = 1000;
 
 int main(int argc, char** argv) {
-    Caffe::set_mode(Caffe::GPU);
+    Caffe::set_mode(Caffe::CPU);
 
     // reading train CIFAR data into blobs
     vector<Blob<Dtype>*> blob_bottom_data_vec;

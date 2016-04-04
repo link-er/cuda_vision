@@ -57,4 +57,4 @@ For learning from scratch the same model and same solver gave result of 0.332000
 
 Nearest Neighbor with 40000 train images and 10000 test images gives Error rate equal to 0.6583. 
 Logistic Classifier with all 50000 train images and 10000 test images gave score 2822 out of 10000. Learning time: 163.399
-
+Logistic Classifier on CPU - Learning time: 2563.72; Test score: 2963 out of 10000
