@@ -8,6 +8,8 @@
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
 
+#include <time.h>
+
 typedef double Dtype;
 using namespace caffe;
 using namespace std;
@@ -87,6 +89,8 @@ int main(int argc, char** argv) {
 
     cout << "Reshaped\n";
 
+    clock_t tStart = clock();
+
     Blob<Dtype>* blob_train_out = new Blob<Dtype>(1, 1, n, d);
     caffe_gpu_powx<Dtype>(blob_data->count(), blob_data->gpu_data(), 2.0, blob_train_out->mutable_gpu_data());
 
@@ -122,6 +126,9 @@ int main(int argc, char** argv) {
     cout << "Got final distances\n";
     delete blob_data;
     delete blob_test_data;
+
+    double time_taken = (double)(clock() - tStart)/CLOCKS_PER_SEC;
+    cout<<"Learning time: "<<time_taken<<endl;
 
     // ============= ARGMAX LAYER ================
     cout << "Preparing layer\n";
