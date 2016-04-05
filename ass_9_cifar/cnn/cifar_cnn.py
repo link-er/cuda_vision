@@ -12,7 +12,7 @@ import caffe
 import time
 
 caffe.set_device(0)
-caffe.set_mode_gpu()
+caffe.set_mode_cpu()
 
 solver = caffe.SGDSolver('/home/VI/stud/adilova/cuda_vision/ass_9_cifar/cnn/cifar_classifier_solver.prototxt')
 

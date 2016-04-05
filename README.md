@@ -51,10 +51,17 @@ So it is about the same as were in previous net.
 ## Assignment8
 
 For finetuning CIFAR10 resized to 256x256 dataset the accuracy result, after 200 iterations, was 0.742000001669
+
 For learning from scratch the same model and same solver gave result of 0.332000002265 accuracy
 
 ## Assignment9
 
 Nearest Neighbor with 40000 train images and 10000 test images gives Error rate equal to 0.6583. Learning time with GPU: 38.701. Learning time with CPU: 1175.53
+
 Logistic Classifier with all 50000 train images and 10000 test images gave score 2822 out of 10000. Learning time: 163.399
+
 Logistic Classifier on CPU - Learning time: 2563.72; Test score: 2963 out of 10000
+
+CNN Training time with GPU on 500 iterations: 96.0244548321
+
+CNN Training time with CPU on 500 iterations: 1825.20337296
